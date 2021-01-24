@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://static.easyicon.net/preview/114/1146409.gif">
+	<link rel="icon" href="https://static.easyicon.net/preview/114/1146409.gif">
     <base target="_blank">
     <title>常用网址籍</title>
     <style>
@@ -20,6 +20,7 @@
             background-position:0 100px;
             background-size: 100% calc(100% - 100vh + 8px);
             z-index:-1;
+            padding-bottom:20px;
         }
         body:before{
             content:'';
@@ -84,13 +85,13 @@
             display:inline-block;
             margin:10px 0;
             width:calc(50% - 30px);
-            padding:2px 10px;
             background-color: #ddd;
         }
         main li a{
             display:inline-block;
             width: 100%;
             height: 30px;
+            padding:2px 10px;
             font-size:18px;
             letter-spacing:1px;
             line-height:30px;
@@ -102,7 +103,7 @@
         main li:hover a{
             color:#222;
         }
-        main li a:hover i{
+        main li:hover i{
             background-color:#fc5c65;
         }
         main li a i{
@@ -149,6 +150,21 @@
             margin-left: 5px;
             background-color: #ddd;
             border:none;
+        }
+        @media screen and (max-width: 1180px) {
+        .floatNav{
+            display:none;
+        }
+        body:after{
+            top:100px;
+        }
+        header{
+            box-shadow:0 0 3px 3px #a5b1c2;
+        }
+        main{
+            margin-top: 110px;
+            border-radius:15px;
+        }
         }
     </style>
 </head>
