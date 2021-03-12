@@ -1,61 +1,50 @@
-<!-- 最后修改日期：2021-1-24 -->
+<!--最后修改日期：2021-3-12-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="icon" href="https://static.easyicon.net/preview/114/1146409.gif">
-    <base target="_blank">
-    <title>常用网址籍</title>
+    <title>Test</title>
     <style>
         *{
             margin: 0;
             padding: 0;
-            font-family: "Arial";
             text-decoration:none;
-            transition:all 0.2s;
-        }
-        body{
-            background-image:   linear-gradient(to top right,transparent 50%,#b2bec3 50%),
-                                linear-gradient(to bottom,#74b9ff,#55efc4,#fdcb6e,#ff7675);
-            background-position:0 100px;
-            background-size: 100% calc(100% - 100vh + 8px);
-            z-index:-1;
-            padding-bottom:20px;
-        }
-        body:before{
-            content:'';
-            position:fixed;
-            width:100%;
-            height:100px;
-            background-color: #ccc;
-            z-index:-1;
-        }
-        body:after{
-            content:'';
-            position:fixed;
-            width:100%;
-            top:108px;
-            bottom:0px;
-            background-color: #fff;
-            z-index:-1;
         }
         header{
+            height:80px;
             position: fixed;
             top:0;
             width: 100%;
-            height: 100px;
             background-color: #fff;
-            text-align:center;
-            line-height:100px;
+            line-height:74px;
             letter-spacing:10px;
             color:#0984e3;
-            z-index:1;
+            font-size:30px;
+            font-weight:bold;
+            text-align:center;
+            z-index:10;
+        }
+        #progressBar{
+            width:0;
+            height:6px;
+            transition:all .2s;
+            background-color: #71bff9;
+            position:relative;
+        }
+        #progressBar::after{
+            content:"";
+            background-color: #dfe6e9;
+            width:100vw;
+            height:6px;
+            z-index:-1;
+            position:absolute;
         }
         main{
             width: 800px;
             margin: 0 auto;
-            margin-top: 108px;
+            margin-top: 80px;
             margin-bottom:50px;
             background-color: rgba(9, 132, 227,0.1);
             padding:1px 30px 30px 30px;
@@ -67,12 +56,14 @@
             width:calc(100% - 40px);
             border:3px solid #fff;
             border-radius:10px;
+            transition:all 0.5s;
         }
         main div:hover h2{
             color:#fc5c65;
         }
         main div:hover{
-            box-shadow:0 0 7px 3px #a7adb8;
+            box-shadow:1px 2px 7px 5px #b2bec3;
+            background-color: #e6f2fc;
         }
         main h2{
             width: 100%;
@@ -134,10 +125,10 @@
         .floatNav a{
             display:block;
             height:40px;
-            padding:10px;
-            font-size:16px;
+            padding:15px;
+            font-size:18px;
             font-weight:bold;
-            letter-spacing:1px;
+            letter-spacing:3px;
             background-color: #45aaf2;
             color:#fff;
             text-align:center;
@@ -159,6 +150,10 @@
             background-color: #ddd;
             border:none;
         }
+        .huge{
+            width:calc(100% - 70px);
+            padding:20px;
+        }
         @media screen and (max-width: 1180px) {
         .floatNav{
             display:none;
@@ -166,23 +161,47 @@
         body:after{
             top:100px;
         }
-        header{
-            box-shadow:0 0 3px 3px #a5b1c2;
-        }
         main{
-            margin-top: 100px;
             margin-bottom:0;
         }
         main div:hover{
-            border:3px solid #fc5c65;
+            border:3px solid #fc655c;
             box-shadow:none;
         }
         }
     </style>
+    <script>
+        window.onload = function(){
+
+            let main = document.querySelector("main");
+            let btns = document.querySelectorAll(".floatNav a");
+            main.parentElement.onscroll = function(){
+                let ratio,progress;
+                progress = document.getElementById("progressBar");
+                mainHeight = Math.floor(main.scrollHeight);
+                console.log()
+                mainTop = Math.floor(main.parentNode.parentNode.scrollTop);
+                mainDisplayHeight = Math.floor(main.parentNode.parentNode.clientHeight);
+                ratio = mainTop / (mainHeight - mainDisplayHeight);
+                progress.style.width = 100 * ratio + "%";
+            }
+            for(let i = 0; i < btns.length; i++){
+                btns[i].addEventListener("click", function(){
+                    for(let j = 0; j < btns.length; j++){
+                        btns[j].style.backgroundColor = "";
+                        console.log(btns[j].style.backgroundColor);
+                    }
+                    btns[i].style.backgroundColor = "#fa5961";
+                })
+            }
+            
+        }
+    </script>
 </head>
 <body>
     <header>
-        <h1>常用网址籍</h1>
+        常用网址籍
+    <div id="progressBar"></div>
     </header>
     <main>
         <a href="TOP Study"></a>
@@ -209,7 +228,9 @@
                 <li><a href="https://www.huya.com/g"><i></i>虎牙直播</a></li>
                 <li><a href="https://www.douyu.com/directory"><i></i>斗鱼直播</a></li>
                 <li><a href="https://www.bilibili.com/"><i></i>哔哩哔哩</a></li>
+                <li><a href="https://bbs.mihoyo.com/"><i></i>米游社</a></li>
                 <li><a href="https://ys.mihoyo.com/"><i></i>原神</a></li>
+                <li><a href="https://www.bh3.com/"><i></i>崩坏三</a></li>
                 <li><a href="https://pvp.qq.com/"><i></i>王者荣耀</a></li>
                 <li><a href="https://cf.qq.com/main.shtml?ADTAG=EventBlackTop.button.btnav.ecter"><i></i>穿越火线</a></li>
                 <li><a href="https://lol.qq.com/main.shtml?ADTAG=lolweb.v3.index"><i></i>英雄联盟</a></li>
@@ -317,12 +338,12 @@
             <ul>
                 <li><a href="https://support.google.com/chrome/answer/157179?hl=zh-Hans"><i></i>GoogleChrome快捷键</a></li>
                 <li><a href="https://blog.csdn.net/xjz729827161/article/details/53513060"><i></i>CMD命令入门</a></li>
-                <li><a href="https://jingyan.baidu.com/article/60ccbcebb4ea1064cbb19762.html"><i></i>Win0注册表无法编辑，写该值的新内容时出错</a></li>
+                <li><a href="https://jingyan.baidu.com/article/60ccbcebb4ea1064cbb19762.html"><i></i>Win0注册表无法编辑</a></li>
                 <li><a href="https://baike.baidu.com/item/%E5%86%B0%E7%82%B9%E8%BF%98%E5%8E%9F%E7%B2%BE%E7%81%B5"><i></i>冰点还原精灵介绍</a></li>
                 <li><a href="https://github.com/crazypegasus/macos-mojave-compatibility-hardware-list"><i></i>Black MacOS硬件兼容列表</a></li>
-                <li>VSCode-Sync
+                <li class="huge">VSCode-Sync
                     <h5>
-                    令牌：<br>&emsp;a0c7603d817d1e6e138dc5d8a0581ac<br>1475eba56<br>
+                    令牌：<br>&emsp;a0c7603d817d1e6e138dc5d8a0581ac1475eba56<br>
                     GitsID:<br>&emsp;1094a3b2706c899916f479cbe84dde5e
                     </h5>
                 </li>
@@ -330,18 +351,18 @@
         </div>
     </main>
     <div class="leftFN floatNav">
-        <a href="#TOP" target="_self">Study</a><hr>
-        <a href="#Study" target="_self">Games</a><hr>
-        <a href="#Games" target="_self">Wallpaper</a><hr>
-        <a href="#Wallpaper" target="_self">Tools</a><hr>
-        <a href="#Tools" target="_self">Online<br>Tools</a>
+        <a href="#TOP" target="_self">学习</a><hr>
+        <a href="#Study" target="_self">娱乐</a><hr>
+        <a href="#Games" target="_self">壁纸</a><hr>
+        <a href="#Wallpaper" target="_self">工具</a><hr>
+        <a href="#Tools" target="_self">在线</a>
     </div>
     <div class="rightFN floatNav">
-        <a href="#Online Tools" target="_self">Software</a><hr>
-        <a href="#Software" target="_self">System</a><hr>
-        <a href="#System" target="_self">Resoures</a><hr>
-        <a href="#Resoures" target="_self">Method</a><hr>
-        <a href="#TOP" target="_self">TOP</a>
+        <a href="#Online Tools" target="_self">软件</a><hr>
+        <a href="#Software" target="_self">系统</a><hr>
+        <a href="#System" target="_self">资源</a><hr>
+        <a href="#Resoures" target="_self">方法</a><hr>
+        <a href="#TOP" target="_self">顶部</a>
     </div>
 </body>
 </html>
