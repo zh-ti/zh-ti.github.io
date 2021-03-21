@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://static.easyicon.net/preview/114/1146409.gif">
+	<link rel="icon" href="https://static.easyicon.net/preview/114/1146409.gif">
     <base target="_blank">
     <title>常用网址籍</title>
     <style>
@@ -145,7 +145,7 @@
             left:80px;
         }
         .rightFN{
-            right:80px;
+            left:calc(100% - 151px);
         }
         hr{
             width:calc(100% - 10px);
@@ -157,6 +157,30 @@
         .huge{
             width:calc(100% - 70px);
             padding:20px;
+        }
+        .tips{
+            position:fixed;
+            width: 320px;
+            height:70px;
+            background-color: #f00;
+            box-shadow:0 0 7px 3px #e74c3c;
+            z-index:100;
+            top:calc(50% - 35px);
+            left:calc(50% - 160px);
+            border-radius:35px;
+            font-size:24px;
+            color:#fff;
+            text-align:center;
+            line-height:70px;
+            letter-spacing:2px;
+            font-weight:bold;
+            opacity:0;
+            transition:all .3s;
+            transform:scale(0.5,0.9);
+        }
+        .tipsRun{
+            opacity:.6;
+            transform:scale(1);
         }
         @media screen and (max-width: 1180px) {
         .floatNav{
@@ -180,6 +204,9 @@
             let main = document.querySelector("main");
             let btns = document.querySelectorAll(".floatNav a");
             let items = document.querySelectorAll("main li a");
+            let tips = document.querySelector(".tips");
+            let moveAble = document.querySelectorAll("main li,.floatNav");
+            console.log(moveAble);
             for(let i = 0; i < items.length; i++){
                 let block = document.createElement("i");
                 items[i].style.padding = "2px 10px";
@@ -204,6 +231,53 @@
                         btns[i].style.backgroundColor = "";
                     },1000);
                 })
+            }
+            let  board="", judge, reg;
+            document.onkeydown = function(event){
+                //817365786772697871837374737871,80827983806982798583708584858269
+                board += event.keyCode + "";
+                //qianchengsijing,prosperousfuture;
+                reg = [/8173657867726978718373747378/,/80827983806982798583708584858269/];
+                judge = reg[0].test(board)||reg[1].test(board);
+                if(reg[0].test(board)){
+                    centence = "前程似锦哟！朋友";
+                }else if(reg[1].test(board)){
+                    centence = "ProsperousFuture!";
+                }
+                if(judge){
+                    tips.innerHTML = centence;
+                    tips.className += " tipsRun";
+                    setTimeout(function(){
+                        tips.className = "tips";
+                    },2000);
+                    move();
+                    board = "";
+                }
+            }
+            function move(){
+                for(let i = 0; i < moveAble.length; i++){
+                    let body = document.querySelector("body");
+                    body.style.userSelect = "none";
+                    moveAble[i].onmousedown = function(event){
+                        let left, top, moveAbleStyle;
+                        moveAbleStyle = getComputedStyle(moveAble[i],null); 
+                        moveAble[i].style.width = parseInt(moveAbleStyle.width) + "px";
+                        moveAble[i].style.position = "absolute";
+                        moveAble[i].onclick = function(){
+                            return false;
+                        }
+                        left = event.clientX - parseInt(moveAbleStyle.left);
+                        top = event.clientY - parseInt(moveAbleStyle.top);
+                        document.onmousemove = function(event){
+                            moveAble[i].style.left = event.clientX - left + "px";
+                            moveAble[i].style.top = event.clientY - top + "px";
+                        }
+                        document.onmouseup = function(event){
+                            document.onmousemove = null;
+                        }
+                        return false;
+                    }
+                }
             }
         }
     </script>
@@ -376,5 +450,6 @@
         <a href="#Resoures" target="_self">方法</a><hr>
         <a href="#TOP" target="_self">顶部</a>
     </div>
+    <div class="tips"></div>
 </body>
 </html>
