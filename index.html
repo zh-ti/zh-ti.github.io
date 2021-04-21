@@ -217,7 +217,7 @@
             main.parentElement.onscroll = function(){
                 let ratio,progress;
                 progress = document.getElementById("progressBar");
-                mainHeight = Math.floor(main.scrollHeight);
+                mainHeight = Math.floor(main.parentNode.parentNode.scrollHeight);
                 mainTop = Math.floor(main.parentNode.parentNode.scrollTop);
                 mainDisplayHeight = Math.floor(main.parentNode.parentNode.clientHeight);
                 ratio = mainTop / (mainHeight - mainDisplayHeight);
