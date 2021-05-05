@@ -335,6 +335,8 @@
                             moveAbleStyle = getComputedStyle(moveAble[i], null);
                             moveAble[i].style.width = parseInt(moveAbleStyle.width) + 'px';
                             moveAble[i].style.position = 'absolute';
+                            moveAble[moveAble.length - 1].style.position = 'fixed';
+                            moveAble[moveAble.length - 2].style.position = 'fixed';
                             left = event.clientX - parseInt(moveAbleStyle.left);
                             top = event.clientY - parseInt(moveAbleStyle.top);
                             document.onmousemove = function (event) {
