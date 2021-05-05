@@ -1,4 +1,4 @@
-<!--最后修改日期：2021-3-12-->
+<!--最后修改日期：2021-5-5-->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -199,6 +199,42 @@
                     box-shadow: none;
                 }
             }
+            .eggBody {
+                position: fixed;
+                z-index: 100;
+                width: 50px;
+                height: 25px;
+                text-align: center;
+                user-select: none;
+                opacity: 0;
+                transform: scale(0);
+            }
+            .eggBody span {
+                font-size: 20px;
+                font-weight: bold;
+                font-family: '楷体';
+                color: #f00;
+                line-height: 25px;
+            }
+            .eggBodyShow {
+                animation: eggShow 0.5s linear 0s, eggMove 0.5s linear 1s;
+                animation-fill-mode: forwards;
+            }
+            @keyframes eggShow {
+                50% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+            @keyframes eggMove {
+                100% {
+                    top: 0px;
+                }
+            }
         </style>
         <script>
             window.onload = function () {
@@ -207,7 +243,6 @@
                 let items = document.querySelectorAll('main li a');
                 let tips = document.querySelector('.tips');
                 let moveAble = document.querySelectorAll('main li,.floatNav');
-                console.log(moveAble);
                 for (let i = 0; i < items.length; i++) {
                     let block = document.createElement('i');
                     items[i].style.padding = '2px 10px';
@@ -234,41 +269,72 @@
                     });
                 }
                 let board = '',
-                    judge,
-                    reg;
+                    eggNumber,
+                    reg,
+                    judge = false,
+                    centence;
                 document.onkeydown = function (event) {
-                    //817365786772697871837374737871,80827983806982798583708584858269
                     board += event.keyCode + '';
-                    //qianchengsijing,prosperousfuture;
-                    reg = [/8173657867726978718373747378/, /80827983806982798583708584858269/];
-                    judge = reg[0].test(board) || reg[1].test(board);
-                    if (reg[0].test(board)) {
-                        centence = '前程似锦哟！朋友';
-                    } else if (reg[1].test(board)) {
-                        centence = 'ProsperousFuture!';
-                    }
-                    if (judge) {
-                        tips.innerHTML = centence;
-                        tips.className += ' tipsRun';
-                        setTimeout(function () {
-                            tips.className = 'tips';
-                        }, 2000);
-                        move();
-                        board = '';
+                    // console.log(board);
+                    //qianchengsijing,prosperousfuture,ilovechina;
+                    reg = [
+                        /8173657867726978718373747378/,
+                        /80827983806982798583708584858269/,
+                        /73767986696772737865/,
+                    ];
+
+                    if (!judge) {
+                        if (reg[0].test(board)) {
+                            centence = '前程似锦哟！朋友';
+                            tipsShow();
+                            board = '';
+                            eggNumber = 1;
+                        } else if (reg[1].test(board)) {
+                            centence = 'ProsperousFuture!';
+                            tipsShow();
+                            board = '';
+                            eggNumber = 1;
+                        } else if (reg[2].test(board)) {
+                            centence = 'I Love China!';
+                            tipsShow();
+                            board = '';
+                            eggNumber = 2;
+                        }
+                        if (typeof eggNumber == 'number') {
+                            already();
+                            if (eggNumber == 1) {
+                                judge = !judge;
+                                move();
+                            } else if (eggNumber == 2) {
+                                judge = !judge;
+                                egg2();
+                            }
+                        }
                     }
                 };
+                function tipsShow() {
+                    tips.innerHTML = centence;
+                    tips.className += ' tipsRun';
+                    setTimeout(function () {
+                        tips.className = 'tips';
+                    }, 2000);
+                }
+                function already() {
+                    let body = document.querySelector('body');
+                    body.style.userSelect = 'none';
+                    for (let i = 0; i < moveAble.length; i++) {
+                        moveAble[i].onclick = function () {
+                            return false;
+                        };
+                    }
+                }
                 function move() {
                     for (let i = 0; i < moveAble.length; i++) {
-                        let body = document.querySelector('body');
-                        body.style.userSelect = 'none';
                         moveAble[i].onmousedown = function (event) {
                             let left, top, moveAbleStyle;
                             moveAbleStyle = getComputedStyle(moveAble[i], null);
                             moveAble[i].style.width = parseInt(moveAbleStyle.width) + 'px';
                             moveAble[i].style.position = 'absolute';
-                            moveAble[i].onclick = function () {
-                                return false;
-                            };
                             left = event.clientX - parseInt(moveAbleStyle.left);
                             top = event.clientY - parseInt(moveAbleStyle.top);
                             document.onmousemove = function (event) {
@@ -281,6 +347,46 @@
                             return false;
                         };
                     }
+                }
+                function egg2() {
+                    let eggCentent,
+                        eggBody,
+                        eggDoc,
+                        eggCount = 0;
+                    eggCentent = [
+                        '富强',
+                        '民主',
+                        '文明',
+                        '和谐',
+                        '自由',
+                        '平等',
+                        '公正',
+                        '法治',
+                        '爱国',
+                        '敬业',
+                        '诚信',
+                        '友善',
+                    ];
+                    let body = document.querySelector('body');
+                    document.addEventListener(
+                        'click',
+                        function (event) {
+                            let eggBody = document.createElement('div');
+                            if (eggCount == eggCentent.length) {
+                                eggCount = 0;
+                            }
+                            eggBody.className = 'eggBody';
+                            eggBody.innerHTML = `<span>${eggCentent[eggCount++]}</span>`;
+                            let eggBodyStyle = getComputedStyle(eggBody, null);
+                            body.appendChild(eggBody);
+                            eggBody.style.top =
+                                event.clientY - parseInt(eggBodyStyle.height) / 2 + 'px';
+                            eggBody.style.left =
+                                event.clientX - parseInt(eggBodyStyle.width) / 2 + 'px';
+                            eggBody.className += ' eggBodyShow';
+                        },
+                        false
+                    );
                 }
             };
         </script>
