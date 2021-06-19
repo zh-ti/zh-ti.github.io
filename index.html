@@ -281,6 +281,8 @@
                         let targetBlock = document.querySelector(`#${subName}`);
                         let reverse = false;
                         let scrollTop = Math.floor(document.scrollingElement.scrollTop);
+                        let clientHeight = Math.floor(document.scrollingElement.clientHeight);
+                        let scrollHeight = Math.floor(document.scrollingElement.scrollHeight);
                         let stopPoint =
                             targetBlock.offsetTop -
                             (window.screen.height / 2 - targetBlock.offsetHeight / 2);
@@ -300,8 +302,14 @@
                                     clearInterval(scrollTimer);
                                 } else {
                                     if (reverse) {
+                                        if (scrollTop == 0) {
+                                            clearInterval(scrollTimer);
+                                        }
                                         window.scrollTo(0, (scrollTop -= 50));
                                     } else {
+                                        if (scrollHeight - scrollTop - 1 == clientHeight) {
+                                            clearInterval(scrollTimer);
+                                        }
                                         window.scrollTo(0, (scrollTop += 50));
                                     }
                                 }
