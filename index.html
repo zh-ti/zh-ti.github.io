@@ -285,7 +285,7 @@
                         let scrollHeight = Math.floor(document.scrollingElement.scrollHeight);
                         let stopPoint =
                             targetBlock.offsetTop -
-                            (window.screen.height / 2 - targetBlock.offsetHeight / 2);
+                            (window.screen.availHeight / 2 - targetBlock.offsetHeight / 2);
                         if (scrollTop > targetBlock.offsetTop) {
                             reverse = true;
                         } else if (scrollTop < targetBlock.offsetTop) {
