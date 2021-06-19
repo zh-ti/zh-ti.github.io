@@ -139,6 +139,8 @@
                 text-align: center;
                 line-height: 40px;
                 transition: background-color 0.3s;
+                cursor: pointer;
+                user-select: none;
             }
             .floatNav a:hover {
                 background-color: #e66767;
@@ -269,6 +271,45 @@
                         }, 1000);
                     });
                 }
+
+                let scrollBtns = document.querySelectorAll('.floatNav a');
+                let scrollTimer;
+                for (let i = 0; i < scrollBtns.length; i++) {
+                    scrollBtns[i].onclick = () => {
+                        scrollTimer && clearInterval(scrollTimer);
+                        let subName = scrollBtns[i].className.slice(2);
+                        let targetBlock = document.querySelector(`#${subName}`);
+                        let reverse = false;
+                        let scrollTop = Math.floor(document.scrollingElement.scrollTop);
+                        let stopPoint =
+                            targetBlock.offsetTop -
+                            (window.screen.height / 2 - targetBlock.offsetHeight / 2);
+                        if (scrollTop > targetBlock.offsetTop) {
+                            reverse = true;
+                        } else if (scrollTop < targetBlock.offsetTop) {
+                            reverse = false;
+                        }
+                        if (!(scrollTop >= stopPoint - 10 && scrollTop <= stopPoint + 10)) {
+                            scrollTimer = setInterval(() => {
+                                scrollTop = Math.floor(document.scrollingElement.scrollTop);
+                                if (reverse && scrollTop <= stopPoint) {
+                                    window.scrollTo(0, stopPoint);
+                                    clearInterval(scrollTimer);
+                                } else if (!reverse && scrollTop >= stopPoint) {
+                                    window.scrollTo(0, stopPoint);
+                                    clearInterval(scrollTimer);
+                                } else {
+                                    if (reverse) {
+                                        window.scrollTo(0, (scrollTop -= 50));
+                                    } else {
+                                        window.scrollTo(0, (scrollTop += 50));
+                                    }
+                                }
+                            }, 5);
+                        }
+                    };
+                }
+
                 let board = '',
                     eggNumber,
                     reg,
@@ -276,7 +317,6 @@
                     centence;
                 document.onkeydown = function (event) {
                     board += event.keyCode + '';
-                    // console.log(board);
                     //qianchengsijing,prosperousfuture,ilovechina;
                     reg = [
                         /8173657867726978718373747378/,
@@ -400,9 +440,8 @@
             <div id="progressBar"></div>
         </header>
         <main>
-            <a href="TOP"></a>
-            <div>
-                <a name="Study"><h2>Study</h2></a>
+            <div id="Study">
+                <h2>Study</h2>
                 <ul>
                     <li><a href="https://www.csdn.net/">CSDN</a></li>
                     <li><a href="https://www.w3school.com.cn/">W3 School</a></li>
@@ -429,8 +468,8 @@
                     <li><a href="http://study.topcsa.club/">Top学习平台</a></li>
                 </ul>
             </div>
-            <div>
-                <a name="Games"><h2>Games</h2></a>
+            <div id="Games">
+                <h2>Games</h2>
                 <ul>
                     <li><a href="https://www.huya.com/g">虎牙直播</a></li>
                     <li><a href="https://www.douyu.com/directory">斗鱼直播</a></li>
@@ -454,8 +493,8 @@
                     <li><a href="http://www.minecraftxz.com/">我的世界中文下载站</a></li>
                 </ul>
             </div>
-            <div>
-                <a name="Wallpaper"><h2>Wallpaper</h2></a>
+            <div id="Wallpaper">
+                <h2>Wallpaper</h2>
                 <ul>
                     <li><a href="http://pic.netbian.com/4kdongman/">彼岸图网</a></li>
                     <li><a href="https://bing.ioliu.cn">必应壁纸</a></li>
@@ -471,8 +510,8 @@
                     <li><a href="https://yande.re/post">Yande</a></li>
                 </ul>
             </div>
-            <div>
-                <a name="Tools"><h2>Tools</h2></a>
+            <div id="Tools">
+                <h2>Tools</h2>
                 <ul>
                     <li>
                         <a href="https://listen1.github.io/listen1/">Listen 1 (全平台音乐播放器)</a>
@@ -500,8 +539,8 @@
                     </li>
                 </ul>
             </div>
-            <div>
-                <a name="Online Tools"><h2>Online Tools</h2></a>
+            <div id="Online">
+                <h2>Online Tools</h2>
                 <ul>
                     <li><a href="http://ailongmiao.com/">龙猫导航</a></li>
                     <li><a href="https://www.kuaidi100.com/?from=openv">快递查询</a></li>
@@ -531,8 +570,8 @@
                     <li><a href="https://fanyi.caiyunapp.com/#/">云彩翻译</a></li>
                 </ul>
             </div>
-            <div>
-                <a name="Software"><h2>Software</h2></a>
+            <div id="Software">
+                <h2>Software</h2>
                 <ul>
                     <li>
                         <a
@@ -567,8 +606,8 @@
                     <li><a href="http://www.pcgeshi.com/">格式工厂 (格式转换)</a></li>
                 </ul>
             </div>
-            <div>
-                <a name="System"><h2>System</h2></a>
+            <div id="System">
+                <h2>System</h2>
                 <ul>
                     <li><a href="https://www.microsoft.com/zh-cn/">Microsoft (微软官网)</a></li>
                     <li><a href="https://msdn.itellyou.cn/">MSDN I Tell You (微软原版资源)</a></li>
@@ -584,8 +623,8 @@
                     <li><a href="http://iwin10.net/">专注于Win10 (Win10Got版)</a></li>
                 </ul>
             </div>
-            <div>
-                <a name="Resoures"><h2>Resoures</h2></a>
+            <div id="Resoures">
+                <h2>Resoures</h2>
                 <ul>
                     <li>
                         <a href="https://pan.baidu.com/s/1a_whBwu4keGuGMJC1IhGIg">
@@ -608,8 +647,8 @@
                     <li><a href="https://github.com/">GitHub</a></li>
                 </ul>
             </div>
-            <div>
-                <a name="Method"><h2>Method</h2></a>
+            <div id="Method">
+                <h2>Method</h2>
                 <ul>
                     <li>
                         <a href="https://support.google.com/chrome/answer/157179?hl=zh-Hans">
@@ -656,26 +695,26 @@
             </div>
         </main>
         <div class="leftFN floatNav">
-            <a href="#TOP" target="_self">学习</a>
+            <a class="toStudy" target="_self">学习</a>
             <hr />
-            <a href="#Study" target="_self">娱乐</a>
+            <a class="toGames" target="_self">娱乐</a>
             <hr />
-            <a href="#Games" target="_self">壁纸</a>
+            <a class="toWallpaper" target="_self">壁纸</a>
             <hr />
-            <a href="#Wallpaper" target="_self">工具</a>
+            <a class="toTools" target="_self">工具</a>
             <hr />
-            <a href="#Tools" target="_self">在线</a>
+            <a class="toOnline" target="_self">在线</a>
         </div>
         <div class="rightFN floatNav">
-            <a href="#Online Tools" target="_self">软件</a>
+            <a class="toSoftware" target="_self">软件</a>
             <hr />
-            <a href="#Software" target="_self">系统</a>
+            <a class="toSystem" target="_self">系统</a>
             <hr />
-            <a href="#System" target="_self">资源</a>
+            <a class="toResoures" target="_self">资源</a>
             <hr />
-            <a href="#Resoures" target="_self">方法</a>
+            <a class="toMethod" target="_self">方法</a>
             <hr />
-            <a href="#TOP" target="_self">顶部</a>
+            <a class="toStudy" target="_self">顶部</a>
         </div>
         <div class="tips"></div>
     </body>
