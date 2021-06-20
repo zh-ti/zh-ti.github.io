@@ -1,2 +1,731 @@
-<!--最后修改日期：2021-6-19--><!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="icon" href="https://img.icons8.com/cotton/2x/book-stack.png" /><base target="_blank" /><title>常用网址籍</title><style>*{margin:0;padding:0;text-decoration:none;font-family:''}header{height:80px;position:fixed;top:0;width:100%;background-color:#fff;line-height:74px;letter-spacing:10px;color:#0984e3;font-size:30px;font-weight:bold;text-align:center;z-index:10;box-shadow:0 1px 7px 1px #aaa}#progressBar{width:0;height:6px;transition:all .2s;background-color:#71bff9;position:relative}#progressBar::after{content:'';background-color:#dfe6e9;width:100vw;height:6px;z-index:-1;position:absolute}main{width:800px;margin:0 auto;margin-top:80px;margin-bottom:50px;background-color:rgba(9,132,227,0.1);padding:1px 30px 30px 30px;border-radius:0 0 15px 15px}main div{margin-top:30px;padding:10px 20px 20px 20px;width:calc(100% - 40px);border:3px solid #fff;border-radius:10px;transition:all 1s}main div:hover h2{color:#fc5c65}main div:hover{box-shadow:1px 1px 7px 3px #bdc3c7;background-color:#e6f2fc}main h2{width:100%;height:24px;line-height:24px;text-align:center;color:#1b9cfc}main ul{list-style:none;margin-top:10px;width:100%;display:flex;flex-wrap:wrap;justify-content:space-around}main li{display:inline-block;margin:10px 0;width:calc(50% - 30px);background-color:#ddd;overflow:hidden}main li a{display:inline-block;width:100%;height:30px;padding:2px 10px 2px 30px;font-size:18px;letter-spacing:1px;line-height:30px;color:#666}main li a i{display:inline-block;margin-bottom:1px;margin-right:10px;width:10px;height:10px;background-color:#ccc;transform:rotate(45deg)}main li:hover{background-color:#ccc}main li:hover a{color:#222}main li:hover i{background-color:#fc5c65}.floatNav{position:fixed;z-index:1;top:calc(50% - 150px);border-radius:10px;overflow:hidden;background-color:#45aaf2}.floatNav a{display:block;height:40px;padding:15px;font-size:18px;font-weight:bold;letter-spacing:3px;background-color:#45aaf2;color:#fff;text-align:center;line-height:40px;transition:background-color .3s;cursor:pointer;user-select:none}.floatNav a:hover{background-color:#e66767}.leftFN{left:80px}.rightFN{left:calc(100% - 151px)}hr{width:calc(100% - 10px);height:1px;margin-left:5px;background-color:#ddd;border:0}.huge{width:calc(100% - 70px);padding:20px}.tips{position:fixed;width:320px;height:70px;background-color:#f00;box-shadow:0 0 7px 3px #e74c3c;z-index:100;top:calc(50% - 35px);left:calc(50% - 160px);border-radius:35px;font-size:24px;color:#fff;text-align:center;line-height:70px;letter-spacing:2px;font-weight:bold;opacity:0;transition:all .3s;transform:scale(0.5,0.9);pointer-events:none}.tipsRun{opacity:.6;transform:scale(1)}@media screen and (max-width:1180px){.floatNav{display:none}body:after{top:100px}main{margin-bottom:0}main div:hover{border:3px solid #fc655c;box-shadow:none}}.eggBody{position:fixed;z-index:100;width:50px;height:25px;text-align:center;user-select:none;opacity:0;transform:scale(0)}.eggBody span{font-size:20px;font-weight:bold;font-family:'楷体';color:#f00;line-height:25px}.eggBodyShow{animation:eggShow .5s linear 0s,eggMove .5s linear 1s;animation-fill-mode:forwards}@keyframes eggShow{50%{opacity:1;transform:scale(1)}100%{opacity:1;transform:scale(1)}}@keyframes eggMove{100%{top:0}}</style><script>window.onload = function(){let main = document.querySelector('main');let btns = document.querySelectorAll('.floatNav a');let items = document.querySelectorAll('main li a');let tips = document.querySelector('.tips');let moveAble = document.querySelectorAll('main li,.floatNav');for(let i = 0;i < items.length;i++){let block = document.createElement('i');items[i].style.padding = '2px 10px';items[i].insertBefore(block,items[i].firstChild)}main.parentElement.onscroll = function(){let ratio,progress;progress = document.getElementById('progressBar');mainHeight = Math.floor(main.parentNode.parentNode.scrollHeight);mainTop = Math.floor(main.parentNode.parentNode.scrollTop);mainDisplayHeight = Math.floor(main.parentNode.parentNode.clientHeight);ratio = mainTop /(mainHeight - mainDisplayHeight);progress.style.width = 100 * ratio+'%'};for(let i = 0;i < btns.length;i++){btns[i].addEventListener('click',function(){for(let j = 0;j < btns.length;j++){btns[j].style.backgroundColor = ''}btns[i].style.backgroundColor = '#fa5961';let timer = setTimeout(function(){btns[i].style.backgroundColor = ''}
-,1000)})}let scrollBtns = document.querySelectorAll('.floatNav a');let scrollTimer;for(let i = 0;i < scrollBtns.length;i++){scrollBtns[i].onclick =() =>{scrollTimer && clearInterval(scrollTimer);let subName = scrollBtns[i].className.slice(2);let targetBlock = document.querySelector(`#${subName}`);let reverse = false;let scrollTop = Math.floor(document.scrollingElement.scrollTop);let clientHeight = Math.floor(document.scrollingElement.clientHeight);let scrollHeight = Math.floor(document.scrollingElement.scrollHeight);let stopPoint = targetBlock.offsetTop -(window.screen.availHeight / 2 - targetBlock.offsetHeight / 2);if(scrollTop>targetBlock.offsetTop){reverse = true}else if(scrollTop < targetBlock.offsetTop){reverse = false}if(!(scrollTop>= stopPoint - 10 && scrollTop <= stopPoint+10)){scrollTimer = setInterval(() =>{scrollTop = Math.floor(document.scrollingElement.scrollTop);if(reverse && scrollTop <= stopPoint){window.scrollTo(0,stopPoint);clearInterval(scrollTimer)}else if(!reverse && scrollTop>= stopPoint){window.scrollTo(0,stopPoint);clearInterval(scrollTimer)}else{if(reverse){if(scrollTop == 0){clearInterval(scrollTimer)}window.scrollTo(0,(scrollTop -= 50))}else{if(scrollHeight - scrollTop - 1 == clientHeight){clearInterval(scrollTimer)}window.scrollTo(0,(scrollTop+= 50))}}},5)}}}let board = '',eggNumber,reg,judge = false,centence;document.onkeydown = function(event){board+= event.keyCode+'';//qianchengsijing,prosperousfuture,ilovechina;reg = [/8173657867726978718373747378/,/80827983806982798583708584858269/,/73767986696772737865/,];if(!judge){if(reg[0].test(board)){centence = '前程似锦哟！朋友';tipsShow();board = '';eggNumber = 1}else if(reg[1].test(board)){centence = 'ProsperousFuture!';tipsShow();board = '';eggNumber = 1}else if(reg[2].test(board)){centence = 'I Love China!';tipsShow();board = '';eggNumber = 2}if(typeof eggNumber == 'number'){already();if(eggNumber == 1){judge =!judge;move()}else if(eggNumber == 2){judge =!judge;egg2()}}}};function tipsShow(){tips.innerHTML = centence;tips.className+= ' tipsRun';setTimeout(function(){tips.className = 'tips'},2000)}function already(){let body = document.querySelector('body');body.style.userSelect = 'none';for(let i = 0;i < moveAble.length;i++){moveAble[i].onclick = function(){return false}}}function move(){for(let i = 0;i < moveAble.length;i++){moveAble[i].onmousedown = function(event){let left,top,moveAbleStyle;moveAbleStyle = getComputedStyle(moveAble[i],null);moveAble[i].style.width = parseInt(moveAbleStyle.width)+'px';moveAble[i].style.position = 'absolute';moveAble[moveAble.length - 1].style.position = 'fixed';moveAble[moveAble.length - 2].style.position = 'fixed';left = event.clientX - parseInt(moveAbleStyle.left);top = event.clientY - parseInt(moveAbleStyle.top);document.onmousemove = function(event){moveAble[i].style.left = event.clientX - left+'px';moveAble[i].style.top = event.clientY - top+'px'};document.onmouseup = function(event){document.onmousemove = null};return false}}}function egg2(){let eggCentent,eggBody,eggDoc,eggCount = 0;eggCentent = ['富强','民主','文明','和谐','自由','平等','公正','法治','爱国','敬业','诚信','友善',];let body = document.querySelector('body');document.addEventListener('click',function(event){let eggBody = document.createElement('div');if(eggCount == eggCentent.length){eggCount = 0}eggBody.className = 'eggBody';eggBody.innerHTML = `<span>${eggCentent[eggCount++]}</span>`;let eggBodyStyle = getComputedStyle(eggBody,null);body.appendChild(eggBody);eggBody.style.top = event.clientY - parseInt(eggBodyStyle.height) / 2+'px';eggBody.style.left = event.clientX - parseInt(eggBodyStyle.width) / 2+'px';eggBody.className+= ' eggBodyShow'},false)}};</script></head><body><header>常用网址籍 <div id="progressBar"></div></header><main><div id="Study"><h2>Study</h2><ul><li><a href="https://www.csdn.net/">CSDN</a></li><li><a href="https://www.w3school.com.cn/">W3 School</a></li><li><a href="https://www.typingclub.com/sportal/program-3.game">TypingClub</a></li><li><a href="https://www.html.cn/">HTML中文网</a></li><li><a href="https://www.runoob.com/">菜鸟教程</a></li><li><a href="https://www.gushiwen.org/index.aspx">古诗文网</a></li><li><a href="https://www.wubidz.cn/">在线打字练习</a></li><li><a href="https://barneyzhao.gitee.io/typing-cn/#/">Typing-cn</a></li><li><a href="http://shared.youdao.com/market/xmdh/163.html">以你之名，守护汉字 </a></li><li><a href="https://nuclearsecrecy.com/nukemap/">核弹伤害范围模拟</a></li><li><a href="http://guoqing70.cctv.com/?spm=C96370.PsikHJQ1ICOX.EyOXJo4iDXr2.1">庆祝新中国成立70周年网上展馆 </a></li><li><a href="https://www.allhistory.com/">全历史</a></li><li><a href="http://study.topcsa.club/">Top学习平台</a></li></ul></div><div id="Games"><h2>Games</h2><ul><li><a href="https://www.huya.com/g">虎牙直播</a></li><li><a href="https://www.douyu.com/directory">斗鱼直播</a></li><li><a href="https://www.bilibili.com/">哔哩哔哩</a></li><li><a href="https://bbs.mihoyo.com/">米游社</a></li><li><a href="https://ys.mihoyo.com/">原神</a></li><li><a href="https://www.bh3.com/">崩坏三</a></li><li><a href="https://pvp.qq.com/">王者荣耀</a></li><li><a href="https://cf.qq.com/main.shtml?ADTAG=EventBlackTop.button.btnav.ecter">穿越火线 </a></li><li><a href="https://lol.qq.com/main.shtml?ADTAG=lolweb.v3.index">英雄联盟</a></li><li><a href="http://www.heishenhua.com/">黑神话：悟空</a></li><li><a href="http://www.mcmap.cc/">我的世界MOD下载</a></li><li><a href="http://www.minecraftxz.com/">我的世界中文下载站</a></li></ul></div><div id="Wallpaper"><h2>Wallpaper</h2><ul><li><a href="http://pic.netbian.com/4kdongman/">彼岸图网</a></li><li><a href="https://bing.ioliu.cn">必应壁纸</a></li><li><a href="http://lab.mkblog.cn/wallpaper/">电脑壁纸</a></li><li><a href="https://wallhaven.cc/">Wallhaven</a></li><li><a href="https://wallhere.com/">Wallhere</a></li><li><a href="https://wallpaperscraft.com">WallpapersCraft</a></li><li><a href="https://wall.alphacoders.com/?lang=Chinese">WallpaperAbyss</a></li><li><a href="https://wallroom.io/">Wallroom</a></li><li><a href="https://www.yuumeiart.com/">YUUMEI</a></li><li><a href="https://konachan.com/">Konachan</a></li><li><a href="https://www.pixiv.net/">Pixiv</a></li><li><a href="https://yande.re/post">Yande</a></li></ul></div><div id="Tools"><h2>Tools</h2><ul><li><a href="https://listen1.github.io/listen1/">Listen 1(全平台音乐播放器)</a></li><li><a href="https://www.bandisoft.com/bandizip/">BandiZip(解压缩)</a></li><li><a href="https://www.bandicam.cn/">BandiCam(录屏)</a></li><li><a href="https://www.microsoft.com/zh-cn/edge">MicrosoftEdge(Edge浏览器)</a></li><li><a href="https://www.google.cn/chrome/index.html">GoogleChrome(谷歌浏览器) </a></li><li><a href="https://www.voidtools.com/zh-cn/">Everthing(快速搜索软件)</a></li><li><a href="http://www.wox.one/">Wox(启动器)</a></li><li><a href="https://www.huorong.cn/">火绒安全(干净的安全卫士)</a></li><li><a href="https://www.lanzoux.com/b01bdspaj">雷鸟下载(可下载度盘的数据)</a></li><li><a href="https://pc.weixin.qq.com/?t=win_weixin&platform=wx&lang=zh_CN">微信(电脑版) </a></li></ul></div><div id="Online"><h2>Online Tools</h2><ul><li><a href="http://ailongmiao.com/">龙猫导航</a></li><li><a href="https://www.kuaidi100.com/?from=openv">快递查询</a></li><li><a href="http://tool.liumingye.cn/music/?page=homePage">在线音乐平台</a></li><li><a href="http://www.pojiewo.com/baiduurl">百度网盘直链解析</a></li><li><a href="https://tool.oschina.net/hexconvert">进制转换</a></li><li><a href="https://jingzhunyun.com/">云工具大全</a></li><li><a href="https://www.speedtest.net/">SPEEDTEST测速</a></li><li><a href="http://scgazwfw.sczwfw.gov.cn/?convenientService=xinshenger">四川省重名查询 </a></li><li><a href="http://fooplot.com/?lang=zh_hans#W3sidHlwZSI6MCwiZXEiOiIiLCJjb2xvciI6IiMwMDAwMDAifSx7InR5cGUiOjEwMDAsIndpbmRvdyI6WyItNy40OTgzMzMzMjIxMTQ5MjIiLCI1LjUwMTY2NjY3Nzg4NTA2MiIsIi01LjA3OTY1OTA4Njk5MDMyIiwiMi45MjAzNDA5MTMwMDk2NjA3Il19XQ--">数学函数绘图器 </a></li><li><a href="https://www.uupoop.com">在线PS</a></li><li><a href="https://brandcolors.net/">配色参考</a></li><li><a href="https://flatuicolors.com/palette/ru">调色板</a></li><li><a href="https://www.dalipan.com/#/">大力盘搜索</a></li><li><a href="https://fanyi.caiyunapp.com/#/">云彩翻译</a></li></ul></div><div id="Software"><h2>Software</h2><ul><li><a href="https://www.videohelp.com/download-SWtsbtwf/PotPlayerSetup-1.7.18928.exe">Potplayer(不错的播放器) </a></li><li><a href="https://code.visualstudio.com/">VSCode(前端开发工具)</a></li><li><a href="https://www.chuyu.me/zh-Hans/">Dism++(Windows系统清理)</a></li><li><a href="https://notepad-plus-plus.org/">Notepad++(代码编辑)</a></li><li><a href="https://sourceforge.net/projects/dev-cpp/">Dev-C++(C程序执行)</a></li><li><a href="https://cn.ultraiso.net/xiazai.html">UltralSO(系统镜像写入)</a></li><li><a href="https://geekuninstaller.com/download?version=1.4.7.142">Geek(卸载软件) </a></li><li><a href="https://bbs.luobotou.org/thread-761-1-1.html">WinToGo(U盘系统制作) </a></li><li><a href="http://www.diskgenius.cn/">DiskGenius(磁盘管理)</a></li><li><a href="https://zh.snipaste.com">Snipaste(截图)</a></li><li><a href="http://www.wepe.com.cn/">微PE(PE系统制作)</a></li><li><a href="https://www.tbtool.cn/">图吧工具箱（测试电脑）</a></li><li><a href="http://www.pcgeshi.com/">格式工厂(格式转换)</a></li></ul></div><div id="System"><h2>System</h2><ul><li><a href="https://www.microsoft.com/zh-cn/">Microsoft(微软官网)</a></li><li><a href="https://msdn.itellyou.cn/">MSDN I Tell You(微软原版资源)</a></li><li><a href="https://ubuntu.com/index_kylin">Ubuntu(Linux系统)</a></li><li><a href="https://www.deepin.org/">Deepin(深度Linux)</a></li><li><a href="https://www.chinauos.com/resource/download-server">UOS(统信Linux) </a></li><li><a href="https://blog.daliansky.net/">黑果小兵(黑苹果系统)</a></li><li><a href="https://www.newxitong.com">专注于Win7(Win7Got版)</a></li><li><a href="http://iwin10.net/">专注于Win10(Win10Got版)</a></li></ul></div><div id="Resoures"><h2>Resoures</h2><ul><li><a href="https://pan.baidu.com/s/1a_whBwu4keGuGMJC1IhGIg">百度云盘资源(提取码:kck5) </a></li><li><a href="https://www.iconfont.cn/home/index?spm=a313x.7781069.1998910419.2">阿里巴巴矢量图标库 </a></li><li><a href="https://www.jokerps.com/">鹏少资源网</a></li><li><a href="https://www.ghpym.com/">果壳剥壳</a></li><li><a href="http://www.dayanzai.me/">大眼仔旭</a></li><li><a href="https://chrome.zzzmh.cn/">极简插件</a></li><li><a href="https://www.sysceo.com/">系统总裁</a></li><li><a href="https://topbook.cc/overview">Topbook</a></li><li><a href="http://www.lookae.com/">LookAE</a></li><li><a href="https://www.itsk.com/">IT天空</a></li><li><a href="https://github.com/">GitHub</a></li></ul></div><div id="Method"><h2>Method</h2><ul><li><a href="https://support.google.com/chrome/answer/157179?hl=zh-Hans">GoogleChrome快捷键 </a></li><li><a href="https://blog.csdn.net/xjz729827161/article/details/53513060">CMD命令入门 </a></li><li><a href="https://jingyan.baidu.com/article/60ccbcebb4ea1064cbb19762.html">Win0注册表无法编辑 </a></li><li><a href="https://baike.baidu.com/item/%E5%86%B0%E7%82%B9%E8%BF%98%E5%8E%9F%E7%B2%BE%E7%81%B5">冰点还原精灵介绍 </a></li><li><a href="https://github.com/crazypegasus/macos-mojave-compatibility-hardware-list">Black MacOS硬件兼容列表 </a></li><li class="huge">VSCode-Sync <h5>令牌： <br />&emsp;a0c7603d817d1e6e138dc5d8a0581ac1475eba56 <br />GitsID:<br />&emsp;1094a3b2706c899916f479cbe84dde5e </h5></li></ul></div></main><div class="leftFN floatNav"><a class="toStudy" target="_self">学习</a><hr /><a class="toGames" target="_self">娱乐</a><hr /><a class="toWallpaper" target="_self">壁纸</a><hr /><a class="toTools" target="_self">工具</a><hr /><a class="toOnline" target="_self">在线</a></div><div class="rightFN floatNav"><a class="toSoftware" target="_self">软件</a><hr /><a class="toSystem" target="_self">系统</a><hr /><a class="toResoures" target="_self">资源</a><hr /><a class="toMethod" target="_self">方法</a><hr /><a class="toStudy" target="_self">顶部</a></div><div class="tips"></div></body></html>
+<!--最后修改日期：2021-6-19-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="https://img.icons8.com/cotton/2x/book-stack.png" />
+        <base target="_blank" />
+        <title>常用网址籍</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                text-decoration: none;
+                font-family: '';
+            }
+            header {
+                height: 80px;
+                position: fixed;
+                top: 0;
+                width: 100%;
+                background-color: #fff;
+                line-height: 74px;
+                letter-spacing: 10px;
+                color: #0984e3;
+                font-size: 30px;
+                font-weight: bold;
+                text-align: center;
+                z-index: 10;
+                box-shadow: 0 1px 7px 1px #aaa;
+            }
+            #progressBar {
+                width: 0;
+                height: 6px;
+                transition: all 0.2s;
+                background-color: #71bff9;
+                position: relative;
+            }
+            #progressBar::after {
+                content: '';
+                background-color: #dfe6e9;
+                width: 100vw;
+                height: 6px;
+                z-index: -1;
+                position: absolute;
+            }
+            main {
+                width: 800px;
+                margin: 0 auto;
+                margin-top: 80px;
+                margin-bottom: 50px;
+                background-color: rgba(9, 132, 227, 0.1);
+                padding: 1px 30px 30px 30px;
+                border-radius: 0 0 15px 15px;
+            }
+            main div {
+                margin-top: 30px;
+                padding: 10px 20px 20px 20px;
+                width: calc(100% - 40px);
+                border: 3px solid #fff;
+                border-radius: 10px;
+                transition: all 1s;
+            }
+            main div:hover h2 {
+                color: #fc5c65;
+            }
+            main div:hover {
+                box-shadow: 1px 1px 7px 3px #bdc3c7;
+                background-color: #e6f2fc;
+            }
+            main h2 {
+                width: 100%;
+                height: 24px;
+                line-height: 24px;
+                text-align: center;
+                color: #1b9cfc;
+            }
+            main ul {
+                list-style: none;
+                margin-top: 10px;
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+            }
+            main li {
+                display: inline-block;
+                margin: 10px 0;
+                width: calc(50% - 30px);
+                background-color: #ddd;
+                overflow: hidden;
+                font-size: 0;
+            }
+            main li a {
+                display: inline-block;
+                width: 100%;
+                height: 30px;
+                padding: 2px 10px 2px 30px;
+                font-size: 18px;
+                letter-spacing: 1px;
+                line-height: 30px;
+                color: #666;
+            }
+            main li a i {
+                display: inline-block;
+                margin-bottom: 1px;
+                margin-right: 10px;
+                width: 10px;
+                height: 10px;
+                background-color: #ccc;
+                transform: rotate(45deg);
+            }
+            main li:hover {
+                background-color: #ccc;
+            }
+            main li:hover a {
+                color: #222;
+            }
+            main li:hover i {
+                background-color: #fc5c65;
+            }
+            .floatNav {
+                position: fixed;
+                z-index: 1;
+                top: calc(50% - 150px);
+                border-radius: 10px;
+                overflow: hidden;
+                background-color: #45aaf2;
+            }
+            .floatNav a {
+                display: block;
+                height: 40px;
+                padding: 15px;
+                font-size: 18px;
+                font-weight: bold;
+                letter-spacing: 3px;
+                background-color: #45aaf2;
+                color: #fff;
+                text-align: center;
+                line-height: 40px;
+                transition: background-color 0.3s;
+                cursor: pointer;
+                user-select: none;
+            }
+            .floatNav a:hover {
+                background-color: #e66767;
+            }
+            .leftFN {
+                left: 80px;
+            }
+            .rightFN {
+                left: calc(100% - 151px);
+            }
+            hr {
+                width: calc(100% - 10px);
+                height: 1px;
+                margin-left: 5px;
+                background-color: #ddd;
+                border: none;
+            }
+            .huge {
+                width: calc(100% - 70px);
+                padding: 20px;
+            }
+            .tips {
+                position: fixed;
+                width: 320px;
+                height: 70px;
+                background-color: #f00;
+                box-shadow: 0 0 7px 3px #e74c3c;
+                z-index: 100;
+                top: calc(50% - 35px);
+                left: calc(50% - 160px);
+                border-radius: 35px;
+                font-size: 24px;
+                color: #fff;
+                text-align: center;
+                line-height: 70px;
+                letter-spacing: 2px;
+                font-weight: bold;
+                opacity: 0;
+                transition: all 0.3s;
+                transform: scale(0.5, 0.9);
+                pointer-events: none;
+            }
+            .tipsRun {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+            @media screen and (max-width: 1180px) {
+                .floatNav {
+                    display: none;
+                }
+                body:after {
+                    top: 100px;
+                }
+                main {
+                    margin-bottom: 0;
+                }
+                main div:hover {
+                    border: 3px solid #fc655c;
+                    box-shadow: none;
+                }
+            }
+            .eggBody {
+                position: fixed;
+                z-index: 100;
+                width: 50px;
+                height: 25px;
+                text-align: center;
+                user-select: none;
+                opacity: 0;
+                transform: scale(0);
+            }
+            .eggBody span {
+                font-size: 20px;
+                font-weight: bold;
+                font-family: '楷体';
+                color: #f00;
+                line-height: 25px;
+            }
+            .eggBodyShow {
+                animation: eggShow 0.5s linear 0s, eggMove 0.5s linear 1s;
+                animation-fill-mode: forwards;
+            }
+            @keyframes eggShow {
+                50% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+            @keyframes eggMove {
+                100% {
+                    top: 0px;
+                }
+            }
+        </style>
+        <script>
+            window.onload = function () {
+                let main = document.querySelector('main');
+                let btns = document.querySelectorAll('.floatNav a');
+                let items = document.querySelectorAll('main li a');
+                let tips = document.querySelector('.tips');
+                let moveAble = document.querySelectorAll('main li,.floatNav');
+                for (let i = 0; i < items.length; i++) {
+                    let block = document.createElement('i');
+                    items[i].style.padding = '2px 10px';
+                    items[i].innerHTML = items[i].innerHTML.trim();
+                    items[i].insertBefore(block, items[i].firstChild);
+                }
+                main.parentElement.onscroll = function () {
+                    let ratio, progress;
+                    progress = document.getElementById('progressBar');
+                    mainHeight = Math.floor(main.parentNode.parentNode.scrollHeight);
+                    mainTop = Math.floor(main.parentNode.parentNode.scrollTop);
+                    mainDisplayHeight = Math.floor(main.parentNode.parentNode.clientHeight);
+                    ratio = mainTop / (mainHeight - mainDisplayHeight);
+                    progress.style.width = 100 * ratio + '%';
+                };
+                for (let i = 0; i < btns.length; i++) {
+                    btns[i].addEventListener('click', function () {
+                        for (let j = 0; j < btns.length; j++) {
+                            btns[j].style.backgroundColor = '';
+                        }
+                        btns[i].style.backgroundColor = '#fa5961';
+                        let timer = setTimeout(function () {
+                            btns[i].style.backgroundColor = '';
+                        }, 1000);
+                    });
+                }
+
+                let scrollBtns = document.querySelectorAll('.floatNav a');
+                let scrollTimer;
+                for (let i = 0; i < scrollBtns.length; i++) {
+                    scrollBtns[i].onclick = () => {
+                        scrollTimer && clearInterval(scrollTimer);
+                        let subName = scrollBtns[i].className.slice(2);
+                        let targetBlock = document.querySelector(`#${subName}`);
+                        let reverse = false;
+                        let scrollTop = Math.floor(document.scrollingElement.scrollTop);
+                        let clientHeight = Math.floor(document.scrollingElement.clientHeight);
+                        let scrollHeight = Math.floor(document.scrollingElement.scrollHeight);
+                        let stopPoint =
+                            targetBlock.offsetTop -
+                            (window.screen.availHeight / 2 - targetBlock.offsetHeight / 2);
+                        if (scrollTop > targetBlock.offsetTop) {
+                            reverse = true;
+                        } else if (scrollTop < targetBlock.offsetTop) {
+                            reverse = false;
+                        }
+                        if (!(scrollTop >= stopPoint - 10 && scrollTop <= stopPoint + 10)) {
+                            scrollTimer = setInterval(() => {
+                                scrollTop = Math.floor(document.scrollingElement.scrollTop);
+                                if (reverse && scrollTop <= stopPoint) {
+                                    window.scrollTo(0, stopPoint);
+                                    clearInterval(scrollTimer);
+                                } else if (!reverse && scrollTop >= stopPoint) {
+                                    window.scrollTo(0, stopPoint);
+                                    clearInterval(scrollTimer);
+                                } else {
+                                    if (reverse) {
+                                        if (scrollTop == 0) {
+                                            clearInterval(scrollTimer);
+                                        }
+                                        window.scrollTo(0, (scrollTop -= 50));
+                                    } else {
+                                        if (scrollHeight - scrollTop - 1 == clientHeight) {
+                                            clearInterval(scrollTimer);
+                                        }
+                                        window.scrollTo(0, (scrollTop += 50));
+                                    }
+                                }
+                            }, 5);
+                        }
+                    };
+                }
+
+                let board = '',
+                    eggNumber,
+                    reg,
+                    judge = false,
+                    centence;
+                document.onkeydown = function (event) {
+                    board += event.keyCode + '';
+                    //qianchengsijing,prosperousfuture,ilovechina;
+                    reg = [
+                        /8173657867726978718373747378/,
+                        /80827983806982798583708584858269/,
+                        /73767986696772737865/,
+                    ];
+
+                    if (!judge) {
+                        if (reg[0].test(board)) {
+                            centence = '前程似锦哟！朋友';
+                            tipsShow();
+                            board = '';
+                            eggNumber = 1;
+                        } else if (reg[1].test(board)) {
+                            centence = 'ProsperousFuture!';
+                            tipsShow();
+                            board = '';
+                            eggNumber = 1;
+                        } else if (reg[2].test(board)) {
+                            centence = 'I Love China!';
+                            tipsShow();
+                            board = '';
+                            eggNumber = 2;
+                        }
+                        if (typeof eggNumber == 'number') {
+                            already();
+                            if (eggNumber == 1) {
+                                judge = !judge;
+                                move();
+                            } else if (eggNumber == 2) {
+                                judge = !judge;
+                                egg2();
+                            }
+                        }
+                    }
+                };
+                function tipsShow() {
+                    tips.innerHTML = centence;
+                    tips.className += ' tipsRun';
+                    setTimeout(function () {
+                        tips.className = 'tips';
+                    }, 2000);
+                }
+                function already() {
+                    let body = document.querySelector('body');
+                    body.style.userSelect = 'none';
+                    for (let i = 0; i < moveAble.length; i++) {
+                        moveAble[i].onclick = function () {
+                            return false;
+                        };
+                    }
+                }
+                function move() {
+                    for (let i = 0; i < moveAble.length; i++) {
+                        moveAble[i].onmousedown = function (event) {
+                            let left, top, moveAbleStyle;
+                            moveAbleStyle = getComputedStyle(moveAble[i], null);
+                            moveAble[i].style.width = parseInt(moveAbleStyle.width) + 'px';
+                            moveAble[i].style.position = 'absolute';
+                            moveAble[moveAble.length - 1].style.position = 'fixed';
+                            moveAble[moveAble.length - 2].style.position = 'fixed';
+                            left = event.clientX - parseInt(moveAbleStyle.left);
+                            top = event.clientY - parseInt(moveAbleStyle.top);
+                            document.onmousemove = function (event) {
+                                moveAble[i].style.left = event.clientX - left + 'px';
+                                moveAble[i].style.top = event.clientY - top + 'px';
+                            };
+                            document.onmouseup = function (event) {
+                                document.onmousemove = null;
+                            };
+                            return false;
+                        };
+                    }
+                }
+                function egg2() {
+                    let eggCentent,
+                        eggBody,
+                        eggDoc,
+                        eggCount = 0;
+                    eggCentent = [
+                        '富强',
+                        '民主',
+                        '文明',
+                        '和谐',
+                        '自由',
+                        '平等',
+                        '公正',
+                        '法治',
+                        '爱国',
+                        '敬业',
+                        '诚信',
+                        '友善',
+                    ];
+                    let body = document.querySelector('body');
+                    document.addEventListener(
+                        'click',
+                        function (event) {
+                            let eggBody = document.createElement('div');
+                            if (eggCount == eggCentent.length) {
+                                eggCount = 0;
+                            }
+                            eggBody.className = 'eggBody';
+                            eggBody.innerHTML = `<span>${eggCentent[eggCount++]}</span>`;
+                            let eggBodyStyle = getComputedStyle(eggBody, null);
+                            body.appendChild(eggBody);
+                            eggBody.style.top =
+                                event.clientY - parseInt(eggBodyStyle.height) / 2 + 'px';
+                            eggBody.style.left =
+                                event.clientX - parseInt(eggBodyStyle.width) / 2 + 'px';
+                            eggBody.className += ' eggBodyShow';
+                        },
+                        false
+                    );
+                }
+            };
+        </script>
+    </head>
+    <body>
+        <header>
+            常用网址籍
+            <div id="progressBar"></div>
+        </header>
+        <main>
+            <div id="Study">
+                <h2>Study</h2>
+                <ul>
+                    <li><a href="https://www.csdn.net/">CSDN</a></li>
+                    <li><a href="https://www.w3school.com.cn/">W3 School</a></li>
+                    <li>
+                        <a href="https://www.typingclub.com/sportal/program-3.game">TypingClub</a>
+                    </li>
+                    <li><a href="https://www.html.cn/">HTML中文网</a></li>
+                    <li><a href="https://www.runoob.com/">菜鸟教程</a></li>
+                    <li><a href="https://www.gushiwen.org/index.aspx">古诗文网</a></li>
+                    <li><a href="https://www.wubidz.cn/">在线打字练习</a></li>
+                    <li><a href="https://barneyzhao.gitee.io/typing-cn/#/">Typing-cn</a></li>
+                    <li>
+                        <a href="http://shared.youdao.com/market/xmdh/163.html">
+                            以你之名，守护汉字
+                        </a>
+                    </li>
+                    <li><a href="https://nuclearsecrecy.com/nukemap/">核弹伤害范围模拟</a></li>
+                    <li>
+                        <a href="http://guoqing70.cctv.com/?spm=C96370.PsikHJQ1ICOX.EyOXJo4iDXr2.1">
+                            庆祝新中国成立70周年网上展馆
+                        </a>
+                    </li>
+                    <li><a href="https://www.allhistory.com/">全历史</a></li>
+                    <li><a href="http://study.topcsa.club/">Top学习平台</a></li>
+                </ul>
+            </div>
+            <div id="Games">
+                <h2>Games</h2>
+                <ul>
+                    <li><a href="https://www.huya.com/g">虎牙直播</a></li>
+                    <li><a href="https://www.douyu.com/directory">斗鱼直播</a></li>
+                    <li><a href="https://www.bilibili.com/">哔哩哔哩</a></li>
+                    <li><a href="https://bbs.mihoyo.com/">米游社</a></li>
+                    <li><a href="https://ys.mihoyo.com/">原神</a></li>
+                    <li><a href="https://www.bh3.com/">崩坏三</a></li>
+                    <li><a href="https://pvp.qq.com/">王者荣耀</a></li>
+                    <li>
+                        <a
+                            href="https://cf.qq.com/main.shtml?ADTAG=EventBlackTop.button.btnav.ecter"
+                        >
+                            穿越火线
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://lol.qq.com/main.shtml?ADTAG=lolweb.v3.index">英雄联盟</a>
+                    </li>
+                    <li><a href="http://www.heishenhua.com/">黑神话：悟空</a></li>
+                    <li><a href="http://www.mcmap.cc/">我的世界MOD下载</a></li>
+                    <li><a href="http://www.minecraftxz.com/">我的世界中文下载站</a></li>
+                </ul>
+            </div>
+            <div id="Wallpaper">
+                <h2>Wallpaper</h2>
+                <ul>
+                    <li><a href="http://pic.netbian.com/4kdongman/">彼岸图网</a></li>
+                    <li><a href="https://bing.ioliu.cn">必应壁纸</a></li>
+                    <li><a href="http://lab.mkblog.cn/wallpaper/">电脑壁纸</a></li>
+                    <li><a href="https://wallhaven.cc/">Wallhaven</a></li>
+                    <li><a href="https://wallhere.com/">Wallhere</a></li>
+                    <li><a href="https://wallpaperscraft.com">WallpapersCraft</a></li>
+                    <li><a href="https://wall.alphacoders.com/?lang=Chinese">WallpaperAbyss</a></li>
+                    <li><a href="https://wallroom.io/">Wallroom</a></li>
+                    <li><a href="https://www.yuumeiart.com/">YUUMEI</a></li>
+                    <li><a href="https://konachan.com/">Konachan</a></li>
+                    <li><a href="https://www.pixiv.net/">Pixiv</a></li>
+                    <li><a href="https://yande.re/post">Yande</a></li>
+                </ul>
+            </div>
+            <div id="Tools">
+                <h2>Tools</h2>
+                <ul>
+                    <li>
+                        <a href="https://listen1.github.io/listen1/">Listen 1 (全平台音乐播放器)</a>
+                    </li>
+                    <li><a href="https://www.bandisoft.com/bandizip/">BandiZip (解压缩)</a></li>
+                    <li><a href="https://www.bandicam.cn/">BandiCam (录屏)</a></li>
+                    <li>
+                        <a href="https://www.microsoft.com/zh-cn/edge">MicrosoftEdge(Edge浏览器)</a>
+                    </li>
+                    <li>
+                        <a href="https://www.google.cn/chrome/index.html">
+                            GoogleChrome(谷歌浏览器)
+                        </a>
+                    </li>
+                    <li><a href="https://www.voidtools.com/zh-cn/">Everthing (快速搜索软件)</a></li>
+                    <li><a href="http://www.wox.one/">Wox (启动器)</a></li>
+                    <li><a href="https://www.huorong.cn/">火绒安全 (干净的安全卫士)</a></li>
+                    <li>
+                        <a href="https://www.lanzoux.com/b01bdspaj">雷鸟下载(可下载度盘的数据)</a>
+                    </li>
+                    <li>
+                        <a href="https://pc.weixin.qq.com/?t=win_weixin&platform=wx&lang=zh_CN">
+                            微信(电脑版)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="Online">
+                <h2>Online Tools</h2>
+                <ul>
+                    <li><a href="http://ailongmiao.com/">龙猫导航</a></li>
+                    <li><a href="https://www.kuaidi100.com/?from=openv">快递查询</a></li>
+                    <li>
+                        <a href="http://tool.liumingye.cn/music/?page=homePage">在线音乐平台</a>
+                    </li>
+                    <li><a href="http://www.pojiewo.com/baiduurl">百度网盘直链解析</a></li>
+                    <li><a href="https://tool.oschina.net/hexconvert">进制转换</a></li>
+                    <li><a href="https://jingzhunyun.com/">云工具大全</a></li>
+                    <li><a href="https://www.speedtest.net/">SPEEDTEST测速</a></li>
+                    <li>
+                        <a href="http://scgazwfw.sczwfw.gov.cn/?convenientService=xinshenger">
+                            四川省重名查询
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="http://fooplot.com/?lang=zh_hans#W3sidHlwZSI6MCwiZXEiOiIiLCJjb2xvciI6IiMwMDAwMDAifSx7InR5cGUiOjEwMDAsIndpbmRvdyI6WyItNy40OTgzMzMzMjIxMTQ5MjIiLCI1LjUwMTY2NjY3Nzg4NTA2MiIsIi01LjA3OTY1OTA4Njk5MDMyIiwiMi45MjAzNDA5MTMwMDk2NjA3Il19XQ--"
+                        >
+                            数学函数绘图器
+                        </a>
+                    </li>
+                    <li><a href="https://www.uupoop.com">在线PS</a></li>
+                    <li><a href="https://brandcolors.net/">配色参考</a></li>
+                    <li><a href="https://flatuicolors.com/palette/ru">调色板</a></li>
+                    <li><a href="https://www.dalipan.com/#/">大力盘搜索</a></li>
+                    <li><a href="https://fanyi.caiyunapp.com/#/">云彩翻译</a></li>
+                </ul>
+            </div>
+            <div id="Software">
+                <h2>Software</h2>
+                <ul>
+                    <li>
+                        <a
+                            href="https://www.videohelp.com/download-SWtsbtwf/PotPlayerSetup-1.7.18928.exe"
+                        >
+                            Potplayer(不错的播放器)
+                        </a>
+                    </li>
+                    <li><a href="https://code.visualstudio.com/">VSCode(前端开发工具)</a></li>
+                    <li><a href="https://www.chuyu.me/zh-Hans/">Dism++ (Windows系统清理)</a></li>
+                    <li><a href="https://notepad-plus-plus.org/">Notepad++ (代码编辑)</a></li>
+                    <li>
+                        <a href="https://sourceforge.net/projects/dev-cpp/">Dev-C++ (C程序执行)</a>
+                    </li>
+                    <li>
+                        <a href="https://cn.ultraiso.net/xiazai.html">UltralSO (系统镜像写入)</a>
+                    </li>
+                    <li>
+                        <a href="https://geekuninstaller.com/download?version=1.4.7.142">
+                            Geek (卸载软件)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://bbs.luobotou.org/thread-761-1-1.html">
+                            WinToGo (U盘系统制作)
+                        </a>
+                    </li>
+                    <li><a href="http://www.diskgenius.cn/">DiskGenius (磁盘管理)</a></li>
+                    <li><a href="https://zh.snipaste.com">Snipaste (截图)</a></li>
+                    <li><a href="http://www.wepe.com.cn/">微PE (PE系统制作)</a></li>
+                    <li><a href="https://www.tbtool.cn/">图吧工具箱（测试电脑）</a></li>
+                    <li><a href="http://www.pcgeshi.com/">格式工厂 (格式转换)</a></li>
+                </ul>
+            </div>
+            <div id="System">
+                <h2>System</h2>
+                <ul>
+                    <li><a href="https://www.microsoft.com/zh-cn/">Microsoft (微软官网)</a></li>
+                    <li><a href="https://msdn.itellyou.cn/">MSDN I Tell You (微软原版资源)</a></li>
+                    <li><a href="https://ubuntu.com/index_kylin">Ubuntu (Linux系统)</a></li>
+                    <li><a href="https://www.deepin.org/">Deepin(深度Linux)</a></li>
+                    <li>
+                        <a href="https://www.chinauos.com/resource/download-server">
+                            UOS(统信Linux)
+                        </a>
+                    </li>
+                    <li><a href="https://blog.daliansky.net/">黑果小兵 (黑苹果系统)</a></li>
+                    <li><a href="https://www.newxitong.com">专注于Win7 (Win7Got版)</a></li>
+                    <li><a href="http://iwin10.net/">专注于Win10 (Win10Got版)</a></li>
+                </ul>
+            </div>
+            <div id="Resoures">
+                <h2>Resoures</h2>
+                <ul>
+                    <li>
+                        <a href="https://pan.baidu.com/s/1a_whBwu4keGuGMJC1IhGIg">
+                            百度云盘资源 (提取码:kck5)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.iconfont.cn/home/index?spm=a313x.7781069.1998910419.2">
+                            阿里巴巴矢量图标库
+                        </a>
+                    </li>
+                    <li><a href="https://www.jokerps.com/">鹏少资源网</a></li>
+                    <li><a href="https://www.ghpym.com/">果壳剥壳</a></li>
+                    <li><a href="http://www.dayanzai.me/">大眼仔旭</a></li>
+                    <li><a href="https://chrome.zzzmh.cn/">极简插件</a></li>
+                    <li><a href="https://www.sysceo.com/">系统总裁</a></li>
+                    <li><a href="https://topbook.cc/overview">Topbook</a></li>
+                    <li><a href="http://www.lookae.com/">LookAE</a></li>
+                    <li><a href="https://www.itsk.com/">IT天空</a></li>
+                    <li><a href="https://github.com/">GitHub</a></li>
+                </ul>
+            </div>
+            <div id="Method">
+                <h2>Method</h2>
+                <ul>
+                    <li>
+                        <a href="https://support.google.com/chrome/answer/157179?hl=zh-Hans">
+                            GoogleChrome快捷键
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://blog.csdn.net/xjz729827161/article/details/53513060">
+                            CMD命令入门
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://jingyan.baidu.com/article/60ccbcebb4ea1064cbb19762.html">
+                            Win0注册表无法编辑
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://baike.baidu.com/item/%E5%86%B0%E7%82%B9%E8%BF%98%E5%8E%9F%E7%B2%BE%E7%81%B5"
+                        >
+                            冰点还原精灵介绍
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://github.com/crazypegasus/macos-mojave-compatibility-hardware-list"
+                        >
+                            Black MacOS硬件兼容列表
+                        </a>
+                    </li>
+                    <li class="huge">
+                        VSCode-Sync
+                        <h5>
+                            令牌：
+                            <br />
+                            &emsp;a0c7603d817d1e6e138dc5d8a0581ac1475eba56
+                            <br />
+                            GitsID:
+                            <br />
+                            &emsp;1094a3b2706c899916f479cbe84dde5e
+                        </h5>
+                    </li>
+                </ul>
+            </div>
+        </main>
+        <div class="leftFN floatNav">
+            <a class="toStudy" target="_self">学习</a>
+            <hr />
+            <a class="toGames" target="_self">娱乐</a>
+            <hr />
+            <a class="toWallpaper" target="_self">壁纸</a>
+            <hr />
+            <a class="toTools" target="_self">工具</a>
+            <hr />
+            <a class="toOnline" target="_self">在线</a>
+        </div>
+        <div class="rightFN floatNav">
+            <a class="toSoftware" target="_self">软件</a>
+            <hr />
+            <a class="toSystem" target="_self">系统</a>
+            <hr />
+            <a class="toResoures" target="_self">资源</a>
+            <hr />
+            <a class="toMethod" target="_self">方法</a>
+            <hr />
+            <a class="toStudy" target="_self">顶部</a>
+        </div>
+        <div class="tips"></div>
+    </body>
+</html>
