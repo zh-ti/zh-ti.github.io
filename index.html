@@ -1,4 +1,4 @@
-<!--最后修改日期：2021-6-19-->
+<!--最后修改日期：2021-7-08-->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,6 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="https://img.icons8.com/cotton/2x/book-stack.png" />
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
         <base target="_blank" />
         <title>常用网址籍</title>
         <style>
@@ -240,207 +241,234 @@
             }
         </style>
         <script>
-            window.onload = function () {
-                let main = document.querySelector('main');
-                let btns = document.querySelectorAll('.floatNav a');
-                let items = document.querySelectorAll('main li a');
-                let tips = document.querySelector('.tips');
-                let moveAble = document.querySelectorAll('main li,.floatNav');
-                for (let i = 0; i < items.length; i++) {
-                    let block = document.createElement('i');
-                    items[i].style.padding = '2px 10px';
-                    items[i].innerHTML = items[i].innerHTML.trim();
-                    items[i].insertBefore(block, items[i].firstChild);
-                }
-                main.parentElement.onscroll = function () {
-                    let ratio, progress;
-                    progress = document.getElementById('progressBar');
-                    mainHeight = Math.floor(main.parentNode.parentNode.scrollHeight);
-                    mainTop = Math.floor(main.parentNode.parentNode.scrollTop);
-                    mainDisplayHeight = Math.floor(main.parentNode.parentNode.clientHeight);
-                    ratio = mainTop / (mainHeight - mainDisplayHeight);
-                    progress.style.width = 100 * ratio + '%';
-                };
-                for (let i = 0; i < btns.length; i++) {
-                    btns[i].addEventListener('click', function () {
-                        for (let j = 0; j < btns.length; j++) {
-                            btns[j].style.backgroundColor = '';
-                        }
-                        btns[i].style.backgroundColor = '#fa5961';
-                        let timer = setTimeout(function () {
-                            btns[i].style.backgroundColor = '';
-                        }, 1000);
-                    });
+            $(function () {
+                {
+                    addSquare(); //启动每个链接最前的小方块
+                    progessBar(); //启动进度条
+                    clickStyle(); //启动导航条点击样式
+                    scrollSystem(); //启动导航滚动系统
+                    colorEgg(); //启动彩蛋
                 }
 
-                let scrollBtns = document.querySelectorAll('.floatNav a');
-                let scrollTimer;
-                for (let i = 0; i < scrollBtns.length; i++) {
-                    scrollBtns[i].onclick = () => {
-                        scrollTimer && clearInterval(scrollTimer);
-                        let subName = scrollBtns[i].className.slice(2);
-                        let targetBlock = document.querySelector(`#${subName}`);
-                        let reverse = false;
-                        let scrollTop = Math.floor(document.scrollingElement.scrollTop);
-                        let clientHeight = Math.floor(document.scrollingElement.clientHeight);
-                        let scrollHeight = Math.floor(document.scrollingElement.scrollHeight);
-                        let stopPoint =
-                            targetBlock.offsetTop -
-                            (window.screen.availHeight / 2 - targetBlock.offsetHeight / 2);
-                        if (scrollTop > targetBlock.offsetTop) {
-                            reverse = true;
-                        } else if (scrollTop < targetBlock.offsetTop) {
-                            reverse = false;
-                        }
-                        if (!(scrollTop >= stopPoint - 10 && scrollTop <= stopPoint + 10)) {
-                            scrollTimer = setInterval(() => {
-                                scrollTop = Math.floor(document.scrollingElement.scrollTop);
-                                if (reverse && scrollTop <= stopPoint) {
-                                    window.scrollTo(0, stopPoint);
-                                    clearInterval(scrollTimer);
-                                } else if (!reverse && scrollTop >= stopPoint) {
-                                    window.scrollTo(0, stopPoint);
-                                    clearInterval(scrollTimer);
-                                } else {
-                                    if (reverse) {
-                                        if (scrollTop == 0) {
-                                            clearInterval(scrollTimer);
-                                        }
-                                        window.scrollTo(0, (scrollTop -= 50));
-                                    } else {
-                                        if (scrollHeight - scrollTop - 1 == clientHeight) {
-                                            clearInterval(scrollTimer);
-                                        }
-                                        window.scrollTo(0, (scrollTop += 50));
-                                    }
-                                }
-                            }, 5);
-                        }
+                //为每条链接添加小方块
+                function addSquare() {
+                    const items = $('main li a'); //所有链接
+                    for (let i = 0; i < items.length; i++) {
+                        const item = items.eq(i);
+                        const square = $('<i></i>');
+                        item.css('padding', '2px 10px');
+                        item.html(item.html().trim());
+                        item.prepend(square);
+                    }
+                }
+
+                //进度条
+                function progessBar() {
+                    window.onscroll = () => {
+                        const html = $('html')[0];
+                        const ratio =
+                            100 * (html.scrollTop / (html.scrollHeight - html.clientHeight));
+                        $('#progressBar').width(ratio + '%');
                     };
                 }
 
-                let board = '',
-                    eggNumber,
-                    reg,
-                    judge = false,
-                    centence;
-                document.onkeydown = function (event) {
-                    board += event.keyCode + '';
-                    //qianchengsijing,prosperousfuture,ilovechina;
-                    reg = [
-                        /8173657867726978718373747378/,
-                        /80827983806982798583708584858269/,
-                        /73767986696772737865/,
-                    ];
+                //导航条点击样式
+                function clickStyle() {
+                    const navItems = $('.floatNav a'); //所有导航条中的导肮按钮
+                    for (let item of navItems) {
+                        $(item).click(() => {
+                            $(item)
+                                .siblings('a')
+                                .each((index, otherItem) => {
+                                    $(otherItem).css('background-color', '');
+                                });
+                            $(item).css('background-color', '#fa5961');
+                            setTimeout(() => {
+                                $(item).css('background-color', '');
+                            }, 1000);
+                        });
+                    }
+                }
 
-                    if (!judge) {
-                        if (reg[0].test(board)) {
-                            centence = '前程似锦哟！朋友';
-                            tipsShow();
-                            board = '';
-                            eggNumber = 1;
-                        } else if (reg[1].test(board)) {
-                            centence = 'ProsperousFuture!';
-                            tipsShow();
-                            board = '';
-                            eggNumber = 1;
-                        } else if (reg[2].test(board)) {
-                            centence = 'I Love China!';
-                            tipsShow();
-                            board = '';
-                            eggNumber = 2;
+                //滚动到指定位置
+                function scrollSystem() {
+                    let scrollTimer,
+                        reverse,
+                        target,
+                        scrollTop,
+                        scrollHeight,
+                        clientHeight,
+                        destnation;
+                    const scrollBtns = $('.floatNav a'); //所有导航条中的导肮按钮
+
+                    for (let btn of scrollBtns) {
+                        $(btn).click(() => {
+                            scrollTimer && clearInterval(scrollTimer);
+                            target = $('#' + btn.className.slice(2)); //拿到滚动到的目标
+                            scrollTop = Math.floor(document.scrollingElement.scrollTop); //获取页面滑动的距离
+                            scrollHeight = Math.floor(document.scrollingElement.scrollHeight); //获取页面滑动高度
+                            clientHeight = Math.floor(document.scrollingElement.clientHeight); //获取元素可视高度
+
+                            //获取滑动到的目标
+                            destnation =
+                                target.offset().top -
+                                (window.screen.availHeight / 2 - target.prop('scrollHeight') / 2);
+                            reverse = scrollTop > target.offset().top ? true : false;
+
+                            //判断是否大于 destnation +- 10 的范围
+                            if (!(scrollTop >= destnation - 10 && scrollTop <= destnation + 10)) {
+                                scrollTimer = setInterval(() => {
+                                    scrollTop = Math.floor(document.scrollingElement.scrollTop);
+                                    if (reverse && scrollTop <= destnation) {
+                                        //判断到达目标位置
+                                        window.scrollTo(0, destnation);
+                                        clearInterval(scrollTimer);
+                                    } else if (!reverse && scrollTop >= destnation) {
+                                        //判断到达目标位置
+                                        window.scrollTo(0, destnation);
+                                        clearInterval(scrollTimer);
+                                    } else {
+                                        if (reverse) {
+                                            if (scrollTop == 0) {
+                                                //判断是否到顶
+                                                clearInterval(scrollTimer);
+                                            }
+                                            window.scrollTo(0, (scrollTop -= 50));
+                                        } else {
+                                            if (scrollHeight - scrollTop - 1 == clientHeight) {
+                                                //判断是否到底
+                                                clearInterval(scrollTimer);
+                                            }
+                                            window.scrollTo(0, (scrollTop += 50));
+                                        }
+                                    }
+                                }, 5);
+                            }
+                        });
+                    }
+                }
+
+                //彩蛋
+                function colorEgg() {
+                    let board = '', //记录版
+                        triggered = false; //是否已触发彩蛋
+                    const moveAble = $('main li,.floatNav'),
+                        keywords = [
+                            /8173657867726978718373747378/,
+                            /80827983806982798583708584858269/,
+                            /73767986696772737865/,
+                        ];
+                    $(document).keydown(event => {
+                        board += event.keyCode;
+                        //qianchengsijing,prosperousfuture,ilovechina;
+
+                        if (!triggered) {
+                            if (keywords[0].test(board)) {
+                                prepare('前程似锦哟！朋友', 1);
+                            } else if (keywords[1].test(board)) {
+                                prepare('ProsperousFuture!', 1);
+                            } else if (keywords[2].test(board)) {
+                                prepare('I Love China!', 2);
+                            }
                         }
-                        if (typeof eggNumber == 'number') {
-                            already();
-                            if (eggNumber == 1) {
-                                judge = !judge;
-                                move();
-                            } else if (eggNumber == 2) {
-                                judge = !judge;
+                    });
+
+                    //启动彩蛋前的准备
+                    function prepare(centence, eggNumber) {
+                        showTips(centence);
+                        board = '';
+                        $('body').css('user-select', 'none');
+                        for (let item of moveAble) {
+                            $(item).click(event => event.preventDefault());
+                            if ($('.floatNav').has($(item))) {
+                                $(item)
+                                    .children()
+                                    .each((index, item) => {
+                                        $(item).off('click');
+                                    });
+                            }
+                        }
+                        switch (eggNumber) {
+                            case 1:
+                                egg1();
+                                break;
+                            case 2:
                                 egg2();
-                            }
+                                break;
+                        }
+                        triggered = !triggered;
+                    }
+
+                    //显示弹窗
+                    function showTips(centence) {
+                        const tips = $('.tips'); //弹窗
+                        tips.text(centence);
+                        tips.addClass('tipsRun');
+                        setTimeout(function () {
+                            tips.removeClass('tipsRun');
+                        }, 2000);
+                    }
+
+                    function egg1() {
+                        for (let i of moveAble) {
+                            const item = $(i);
+                            item.mousedown(event => {
+                                let left, top;
+                                item.width(item.width());
+                                item.css('position', 'absolute');
+                                moveAble.eq(moveAble.length - 1).css('position', 'fixed');
+                                moveAble.eq(moveAble.length - 2).css('position', 'fixed');
+                                left = event.clientX - item.position().left;
+                                top = event.clientY - item.position().top;
+                                $(document).mousemove(event => {
+                                    console.log('move');
+                                    item.css('left', event.clientX - left + 'px');
+                                    item.css('top', event.clientY - top + 'px');
+                                });
+                                $(document).mouseup(event => {
+                                    $(document).off('mousemove');
+                                });
+                                return false;
+                            });
                         }
                     }
-                };
-                function tipsShow() {
-                    tips.innerHTML = centence;
-                    tips.className += ' tipsRun';
-                    setTimeout(function () {
-                        tips.className = 'tips';
-                    }, 2000);
-                }
-                function already() {
-                    let body = document.querySelector('body');
-                    body.style.userSelect = 'none';
-                    for (let i = 0; i < moveAble.length; i++) {
-                        moveAble[i].onclick = function () {
-                            return false;
-                        };
+
+                    function egg2() {
+                        let eggCount = 0,
+                            eggCentent = [
+                                '富强',
+                                '民主',
+                                '文明',
+                                '和谐',
+                                '自由',
+                                '平等',
+                                '公正',
+                                '法治',
+                                '爱国',
+                                '敬业',
+                                '诚信',
+                                '友善',
+                            ];
+                        $(document).click(event => {
+                            console.log('click');
+                            let eggBody = $('<div></div>');
+                            if (eggCount == eggCentent.length) eggCount = 0;
+                            eggBody.addClass('eggBody');
+                            eggBody.html(`<span>${eggCentent[eggCount++]}</span>`);
+                            $('body').append(eggBody);
+                            eggBody.css(
+                                'top',
+                                event.clientY - parseInt(eggBody.height()) / 2 + 'px'
+                            );
+                            eggBody.css(
+                                'left',
+                                event.clientX - parseInt(eggBody.width()) / 2 + 'px'
+                            );
+                            eggBody.addClass('eggBodyShow');
+                        });
                     }
                 }
-                function move() {
-                    for (let i = 0; i < moveAble.length; i++) {
-                        moveAble[i].onmousedown = function (event) {
-                            let left, top, moveAbleStyle;
-                            moveAbleStyle = getComputedStyle(moveAble[i], null);
-                            moveAble[i].style.width = parseInt(moveAbleStyle.width) + 'px';
-                            moveAble[i].style.position = 'absolute';
-                            moveAble[moveAble.length - 1].style.position = 'fixed';
-                            moveAble[moveAble.length - 2].style.position = 'fixed';
-                            left = event.clientX - parseInt(moveAbleStyle.left);
-                            top = event.clientY - parseInt(moveAbleStyle.top);
-                            document.onmousemove = function (event) {
-                                moveAble[i].style.left = event.clientX - left + 'px';
-                                moveAble[i].style.top = event.clientY - top + 'px';
-                            };
-                            document.onmouseup = function (event) {
-                                document.onmousemove = null;
-                            };
-                            return false;
-                        };
-                    }
-                }
-                function egg2() {
-                    let eggCentent,
-                        eggBody,
-                        eggDoc,
-                        eggCount = 0;
-                    eggCentent = [
-                        '富强',
-                        '民主',
-                        '文明',
-                        '和谐',
-                        '自由',
-                        '平等',
-                        '公正',
-                        '法治',
-                        '爱国',
-                        '敬业',
-                        '诚信',
-                        '友善',
-                    ];
-                    let body = document.querySelector('body');
-                    document.addEventListener(
-                        'click',
-                        function (event) {
-                            let eggBody = document.createElement('div');
-                            if (eggCount == eggCentent.length) {
-                                eggCount = 0;
-                            }
-                            eggBody.className = 'eggBody';
-                            eggBody.innerHTML = `<span>${eggCentent[eggCount++]}</span>`;
-                            let eggBodyStyle = getComputedStyle(eggBody, null);
-                            body.appendChild(eggBody);
-                            eggBody.style.top =
-                                event.clientY - parseInt(eggBodyStyle.height) / 2 + 'px';
-                            eggBody.style.left =
-                                event.clientX - parseInt(eggBodyStyle.width) / 2 + 'px';
-                            eggBody.className += ' eggBodyShow';
-                        },
-                        false
-                    );
-                }
-            };
+            });
         </script>
     </head>
     <body>
@@ -577,6 +605,7 @@
                     <li><a href="https://flatuicolors.com/palette/ru">调色板</a></li>
                     <li><a href="https://www.dalipan.com/#/">大力盘搜索</a></li>
                     <li><a href="https://fanyi.caiyunapp.com/#/">云彩翻译</a></li>
+                    <li><a href="https://www.bootcdn.cn/">BootCDN 中国CDN加速服务</a></li>
                 </ul>
             </div>
             <div id="Software">
