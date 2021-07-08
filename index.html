@@ -1,4 +1,4 @@
-<!--最后修改日期：2021-7-08-->
+<!--最后修改日期：2021-7-8-->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -55,7 +55,7 @@
                 padding: 1px 30px 30px 30px;
                 border-radius: 0 0 15px 15px;
             }
-            main div {
+            main > div {
                 margin-top: 30px;
                 padding: 10px 20px 20px 20px;
                 width: calc(100% - 40px);
@@ -63,10 +63,10 @@
                 border-radius: 10px;
                 transition: all 1s;
             }
-            main div:hover h2 {
+            main > div:hover h2 {
                 color: #fc5c65;
             }
-            main div:hover {
+            main > div:hover {
                 box-shadow: 1px 1px 7px 3px #bdc3c7;
                 background-color: #e6f2fc;
             }
@@ -77,7 +77,7 @@
                 text-align: center;
                 color: #1b9cfc;
             }
-            main ul {
+            main .list {
                 list-style: none;
                 margin-top: 10px;
                 width: 100%;
@@ -85,24 +85,25 @@
                 flex-wrap: wrap;
                 justify-content: space-around;
             }
-            main li {
+            main .list li {
                 display: inline-block;
                 margin: 10px 0;
                 width: calc(50% - 30px);
                 background-color: #ddd;
-                overflow: hidden;
             }
-            main li a {
+            main .list li a {
                 display: inline-block;
-                width: 100%;
+                color: #666;
+            }
+            main .list > li > a {
+                width: calc(100% - 20px);
                 height: 30px;
                 padding: 2px 10px 2px 30px;
                 font-size: 18px;
                 letter-spacing: 1px;
                 line-height: 30px;
-                color: #666;
             }
-            main li a i {
+            main li i {
                 display: inline-block;
                 margin-bottom: 1px;
                 margin-right: 10px;
@@ -120,6 +121,57 @@
             main li:hover i {
                 background-color: #fc5c65;
             }
+
+            main .menu {
+                position: relative;
+                box-sizing: border-box;
+                height: 34px;
+                line-height: 30px;
+                padding: 2px 10px;
+                color: #666;
+            }
+            main .menu .arrow {
+                display: block;
+                float: right;
+                transition: 0.5s;
+            }
+            main .menu ul {
+                list-style: none;
+                position: absolute;
+                height: 0px;
+                overflow: hidden;
+                left: 0;
+                top: 34px;
+                box-sizing: border-box;
+                width: 100%;
+                padding: 0px 5px;
+                background-color: #ddd;
+                transition: 0.5s;
+                border: 1px solid #666;
+                border-top: none;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                align-items: center;
+                flex-shrink: unset;
+            }
+            main .menu li {
+                margin: 0;
+                width: 100%;
+            }
+            main .menu a {
+                width: calc(100% - 10px);
+                height: 34px;
+                line-height: 34px;
+                padding: 0 5px;
+            }
+            main .menu a:hover {
+                color: #222;
+            }
+            main .menu:hover .arrow {
+                transform: rotate(90deg);
+            }
+
             .floatNav {
                 position: fixed;
                 z-index: 1;
@@ -160,7 +212,7 @@
                 border: none;
             }
             .huge {
-                width: calc(100% - 70px);
+                width: calc(100% - 70px) !important;
                 padding: 20px;
             }
             .tips {
@@ -243,6 +295,7 @@
         <script>
             $(function () {
                 {
+                    setMenuHeight(); //自动设置下拉菜单高度
                     addSquare(); //启动每个链接最前的小方块
                     progessBar(); //启动进度条
                     clickStyle(); //启动导航条点击样式
@@ -250,41 +303,78 @@
                     colorEgg(); //启动彩蛋
                 }
 
+                function setMenuHeight() {
+                    $('.menu').each((index, i) => {
+                        const item = $(i);
+                        item.hover(
+                            () => {
+                                item.children('ul').css({
+                                    height: item.children('ul').children().length * 34 + 10 + 'px',
+                                    color: '#222',
+                                    'z-index': 10,
+                                    padding: '5px',
+                                });
+                                item.children('span').css('color', '#222');
+                                item.children('ul')
+                                    .children('li')
+                                    .children('a')
+                                    .css('color', '#666');
+                                $('.menu a').each((index, item) => {
+                                    $(item).hover(
+                                        () => {
+                                            $(item).css('color', '#222');
+                                        },
+                                        () => {
+                                            $(item).css('color', '#666');
+                                        }
+                                    );
+                                });
+                            },
+                            () => {
+                                item.children('ul').css({
+                                    height: 0,
+                                    color: '#222',
+                                    'z-index': 2,
+                                    padding: '0 5px',
+                                });
+                                item.children('span').css('color', '#666');
+                            }
+                        );
+                    });
+                }
+
                 //为每条链接添加小方块
                 function addSquare() {
-                    const items = $('main li a'); //所有链接
-                    for (let i = 0; i < items.length; i++) {
-                        const item = items.eq(i);
+                    $('.list a, .menu').each((index, item) => {
                         const square = $('<i></i>');
-                        item.css('padding', '2px 10px');
-                        item.html(item.html().trim());
-                        item.prepend(square);
-                    }
+                        $(item).css('padding', '2px 10px');
+                        $(item).html($(item).html().trim());
+                        $(item).prepend(square);
+                    });
                 }
 
                 //进度条
                 function progessBar() {
-                    window.onscroll = () => {
+                    $(window).scroll(() => {
                         const html = $('html')[0];
                         const ratio =
                             100 * (html.scrollTop / (html.scrollHeight - html.clientHeight));
                         $('#progressBar').width(ratio + '%');
-                    };
+                    });
                 }
 
                 //导航条点击样式
                 function clickStyle() {
-                    const navItems = $('.floatNav a'); //所有导航条中的导肮按钮
-                    for (let item of navItems) {
-                        $(item).click(() => {
-                            $(item)
-                                .siblings('a')
-                                .each((index, otherItem) => {
-                                    $(otherItem).css('background-color', '');
-                                });
-                            $(item).css('background-color', '#fa5961');
+                    for (let i of $('.floatNav a')) {
+                        const item = $(i);
+                        item.click(() => {
+                            //启动下一个定时器前，取消上一个的点击样式
+                            item.siblings('a').each((index, otherItem) => {
+                                $(otherItem).css('background-color', '');
+                            });
+                            item.css('background-color', '#fa5961');
                             setTimeout(() => {
-                                $(item).css('background-color', '');
+                                item.css('background-color', '');
                             }, 1000);
                         });
                     }
@@ -304,7 +394,7 @@
                     for (let btn of scrollBtns) {
                         $(btn).click(() => {
                             scrollTimer && clearInterval(scrollTimer);
-                            target = $('#' + btn.className.slice(2)); //拿到滚动到的目标
+                            target = $(`#${btn.className.slice(2)}`); //拿到滚动到的目标
                             scrollTop = Math.floor(document.scrollingElement.scrollTop); //获取页面滑动的距离
                             scrollHeight = Math.floor(document.scrollingElement.scrollHeight); //获取页面滑动高度
                             clientHeight = Math.floor(document.scrollingElement.clientHeight); //获取元素可视高度
@@ -350,78 +440,38 @@
 
                 //彩蛋
                 function colorEgg() {
-                    let board = '', //记录版
-                        triggered = false; //是否已触发彩蛋
-                    const moveAble = $('main li,.floatNav'),
+                    const moveAble = $('main li,.floatNav');
+                    let board = '', //输入记录板
                         keywords = [
                             /8173657867726978718373747378/,
                             /80827983806982798583708584858269/,
                             /73767986696772737865/,
                         ];
+
                     $(document).keydown(event => {
                         board += event.keyCode;
                         //qianchengsijing,prosperousfuture,ilovechina;
 
-                        if (!triggered) {
-                            if (keywords[0].test(board)) {
-                                prepare('前程似锦哟！朋友', 1);
-                            } else if (keywords[1].test(board)) {
-                                prepare('ProsperousFuture!', 1);
-                            } else if (keywords[2].test(board)) {
-                                prepare('I Love China!', 2);
-                            }
+                        if (keywords[0].test(board)) {
+                            prepare('前程似锦哟！朋友', 1);
+                        } else if (keywords[1].test(board)) {
+                            prepare('ProsperousFuture!', 1);
+                        } else if (keywords[2].test(board)) {
+                            prepare('I Love China!', 2);
                         }
                     });
-
-                    //启动彩蛋前的准备
-                    function prepare(centence, eggNumber) {
-                        showTips(centence);
-                        board = '';
-                        $('body').css('user-select', 'none');
-                        for (let item of moveAble) {
-                            $(item).click(event => event.preventDefault());
-                            if ($('.floatNav').has($(item))) {
-                                $(item)
-                                    .children()
-                                    .each((index, item) => {
-                                        $(item).off('click');
-                                    });
-                            }
-                        }
-                        switch (eggNumber) {
-                            case 1:
-                                egg1();
-                                break;
-                            case 2:
-                                egg2();
-                                break;
-                        }
-                        triggered = !triggered;
-                    }
-
-                    //显示弹窗
-                    function showTips(centence) {
-                        const tips = $('.tips'); //弹窗
-                        tips.text(centence);
-                        tips.addClass('tipsRun');
-                        setTimeout(function () {
-                            tips.removeClass('tipsRun');
-                        }, 2000);
-                    }
 
                     function egg1() {
                         for (let i of moveAble) {
                             const item = $(i);
                             item.mousedown(event => {
-                                let left, top;
                                 item.width(item.width());
                                 item.css('position', 'absolute');
                                 moveAble.eq(moveAble.length - 1).css('position', 'fixed');
                                 moveAble.eq(moveAble.length - 2).css('position', 'fixed');
-                                left = event.clientX - item.position().left;
-                                top = event.clientY - item.position().top;
+                                let left = event.clientX - item.position().left;
+                                let top = event.clientY - item.position().top;
                                 $(document).mousemove(event => {
-                                    console.log('move');
                                     item.css('left', event.clientX - left + 'px');
                                     item.css('top', event.clientY - top + 'px');
                                 });
@@ -467,6 +517,41 @@
                             eggBody.addClass('eggBodyShow');
                         });
                     }
+
+                    //启动彩蛋前的准备
+                    function prepare(centence, eggNumber) {
+                        showTips(centence);
+                        $(document).off('keydown');
+                        $('body').css('user-select', 'none');
+                        for (let item of moveAble) {
+                            $(item).click(event => event.preventDefault());
+                            if ($('.floatNav').has($(item))) {
+                                $(item)
+                                    .children()
+                                    .each((index, item) => {
+                                        $(item).off('click');
+                                    });
+                            }
+                        }
+                        switch (eggNumber) {
+                            case 1:
+                                egg1();
+                                break;
+                            case 2:
+                                egg2();
+                                break;
+                        }
+                    }
+
+                    //显示弹窗
+                    function showTips(centence) {
+                        const tips = $('.tips'); //弹窗
+                        tips.text(centence);
+                        tips.addClass('tipsRun');
+                        setTimeout(function () {
+                            tips.removeClass('tipsRun');
+                        }, 2000);
+                    }
                 }
             });
         </script>
@@ -479,17 +564,13 @@
         <main>
             <div id="Study">
                 <h2>Study</h2>
-                <ul>
+                <ul class="list">
                     <li><a href="https://www.csdn.net/">CSDN</a></li>
                     <li><a href="https://www.w3school.com.cn/">W3 School</a></li>
-                    <li>
-                        <a href="https://www.typingclub.com/sportal/program-3.game">TypingClub</a>
-                    </li>
+
                     <li><a href="https://www.html.cn/">HTML中文网</a></li>
                     <li><a href="https://www.runoob.com/">菜鸟教程</a></li>
-                    <li><a href="https://www.gushiwen.org/index.aspx">古诗文网</a></li>
-                    <li><a href="https://www.wubidz.cn/">在线打字练习</a></li>
-                    <li><a href="https://barneyzhao.gitee.io/typing-cn/#/">Typing-cn</a></li>
+                    <li><a href="https://www.gushiwen.cn/">古诗文网</a></li>
                     <li>
                         <a href="http://shared.youdao.com/market/xmdh/163.html">
                             以你之名，守护汉字
@@ -503,11 +584,38 @@
                     </li>
                     <li><a href="https://www.allhistory.com/">全历史</a></li>
                     <li><a href="http://study.topcsa.club/">Top学习平台</a></li>
+                    <li><a href="https://www.bootcdn.cn/">BootCDN 中国CDN加速服务</a></li>
+                    <li class="menu">
+                        <span class="title">打字练习</span>
+                        <span class="arrow">></span>
+                        <ul>
+                            <li><a href="https://www.wubidz.cn/">在线打字练习</a></li>
+                            <li>
+                                <a href="https://barneyzhao.gitee.io/typing-cn/#/">Typing-cn</a>
+                            </li>
+                            <li>
+                                <a href="https://www.typingclub.com/sportal/program-3.game">
+                                    TypingClub
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu">
+                        <span class="title">API</span>
+                        <span class="arrow">></span>
+                        <ul>
+                            <li><a href="https://www.matools.com/api/java8">Java8 API</a></li>
+                            <li>
+                                <a href="https://jquery.cuishifeng.cn/">Jquery API</a>
+                            </li>
+                            <li><a href="https://cn.vuejs.org/v2/api/">Vue API</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <div id="Games">
                 <h2>Games</h2>
-                <ul>
+                <ul class="list">
                     <li><a href="https://www.huya.com/g">虎牙直播</a></li>
                     <li><a href="https://www.douyu.com/directory">斗鱼直播</a></li>
                     <li><a href="https://www.bilibili.com/">哔哩哔哩</a></li>
@@ -526,13 +634,21 @@
                         <a href="https://lol.qq.com/main.shtml?ADTAG=lolweb.v3.index">英雄联盟</a>
                     </li>
                     <li><a href="http://www.heishenhua.com/">黑神话：悟空</a></li>
-                    <li><a href="http://www.mcmap.cc/">我的世界MOD下载</a></li>
-                    <li><a href="http://www.minecraftxz.com/">我的世界中文下载站</a></li>
+                    <li class="menu">
+                        <span class="title">我的世界</span>
+                        <span class="arrow">></span>
+                        <ul>
+                            <li><a href="http://www.mcmap.cc/">我的世界MOD下载</a></li>
+                            <li><a href="http://www.minecraftxz.com/">我的世界中文下载站</a></li>
+                            <li><a href="https://www.mcmod.cn/">我的世界百科</a></li>
+                            <li><a href="https://openid.13a.com/">樱花我的世界联机服务</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <div id="Wallpaper">
                 <h2>Wallpaper</h2>
-                <ul>
+                <ul class="list">
                     <li><a href="http://pic.netbian.com/4kdongman/">彼岸图网</a></li>
                     <li><a href="https://bing.ioliu.cn">必应壁纸</a></li>
                     <li><a href="http://lab.mkblog.cn/wallpaper/">电脑壁纸</a></li>
@@ -549,7 +665,7 @@
             </div>
             <div id="Tools">
                 <h2>Tools</h2>
-                <ul>
+                <ul class="list">
                     <li>
                         <a href="https://listen1.github.io/listen1/">Listen 1 (全平台音乐播放器)</a>
                     </li>
@@ -578,7 +694,7 @@
             </div>
             <div id="Online">
                 <h2>Online Tools</h2>
-                <ul>
+                <ul class="list">
                     <li><a href="http://ailongmiao.com/">龙猫导航</a></li>
                     <li><a href="https://www.kuaidi100.com/?from=openv">快递查询</a></li>
                     <li>
@@ -605,12 +721,11 @@
                     <li><a href="https://flatuicolors.com/palette/ru">调色板</a></li>
                     <li><a href="https://www.dalipan.com/#/">大力盘搜索</a></li>
                     <li><a href="https://fanyi.caiyunapp.com/#/">云彩翻译</a></li>
-                    <li><a href="https://www.bootcdn.cn/">BootCDN 中国CDN加速服务</a></li>
                 </ul>
             </div>
             <div id="Software">
                 <h2>Software</h2>
-                <ul>
+                <ul class="list">
                     <li>
                         <a
                             href="https://www.videohelp.com/download-SWtsbtwf/PotPlayerSetup-1.7.18928.exe"
@@ -646,7 +761,7 @@
             </div>
             <div id="System">
                 <h2>System</h2>
-                <ul>
+                <ul class="list">
                     <li><a href="https://www.microsoft.com/zh-cn/">Microsoft (微软官网)</a></li>
                     <li><a href="https://msdn.itellyou.cn/">MSDN I Tell You (微软原版资源)</a></li>
                     <li><a href="https://ubuntu.com/index_kylin">Ubuntu (Linux系统)</a></li>
@@ -663,7 +778,7 @@
             </div>
             <div id="Resoures">
                 <h2>Resoures</h2>
-                <ul>
+                <ul class="list">
                     <li>
                         <a href="https://pan.baidu.com/s/1a_whBwu4keGuGMJC1IhGIg">
                             百度云盘资源 (提取码:kck5)
@@ -687,7 +802,7 @@
             </div>
             <div id="Method">
                 <h2>Method</h2>
-                <ul>
+                <ul class="list">
                     <li>
                         <a href="https://support.google.com/chrome/answer/157179?hl=zh-Hans">
                             GoogleChrome快捷键
