@@ -1,4 +1,4 @@
-<!--最后修改日期：2021-7-8-->
+<!--最后修改日期：2021-7-9-->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -295,62 +295,74 @@
         <script>
             $(function () {
                 {
-                    setMenuHeight(); //自动设置下拉菜单高度
-                    addSquare(); //启动每个链接最前的小方块
+                    init(); //初始化
                     progessBar(); //启动进度条
                     clickStyle(); //启动导航条点击样式
                     scrollSystem(); //启动导航滚动系统
                     colorEgg(); //启动彩蛋
                 }
 
-                function setMenuHeight() {
-                    $('.menu').each((index, i) => {
-                        const item = $(i);
-                        item.hover(
-                            () => {
-                                item.children('ul').css({
-                                    height: item.children('ul').children().length * 34 + 10 + 'px',
-                                    color: '#222',
-                                    'z-index': 10,
-                                    padding: '5px',
-                                });
-                                item.children('span').css('color', '#222');
-                                item.children('ul')
-                                    .children('li')
-                                    .children('a')
-                                    .css('color', '#666');
-                                $('.menu a').each((index, item) => {
-                                    $(item).hover(
-                                        () => {
-                                            $(item).css('color', '#222');
-                                        },
-                                        () => {
-                                            $(item).css('color', '#666');
-                                        }
-                                    );
-                                });
-                            },
-                            () => {
-                                item.children('ul').css({
-                                    height: 0,
-                                    color: '#222',
-                                    'z-index': 2,
-                                    padding: '0 5px',
-                                });
-                                item.children('span').css('color', '#666');
-                            }
-                        );
-                    });
-                }
+                //初始化
+                function init() {
+                    setMenu(); //自动设置下拉菜单
+                    addSquare(); //启动每个链接最前的小方块
 
-                //为每条链接添加小方块
-                function addSquare() {
-                    $('.list a, .menu').each((index, item) => {
-                        const square = $('<i></i>');
-                        $(item).css('padding', '2px 10px');
-                        $(item).html($(item).html().trim());
-                        $(item).prepend(square);
-                    });
+                    function setMenu() {
+                        $('.menu').each((index, i) => {
+                            const item = $(i);
+                            const title = item.children('span').addClass('title');
+                            const arrow = $(`<span>></span>"`).addClass('arrow');
+                            const ul = $('<ul></ul>');
+                            item.children('a').each((index, item) => {
+                                ul.append($(`<li></li>`).append(item));
+                            });
+                            item.empty();
+                            item.append(title);
+                            item.append(arrow);
+                            item.append(ul);
+                            item.hover(
+                                () => {
+                                    item.children('ul').css({
+                                        height: item.find('li').length * 34 + 10 + 'px',
+                                        color: '#222',
+                                        'z-index': 10,
+                                        padding: '5px',
+                                    });
+                                    item.children('span').css('color', '#222');
+                                    item.find('a').css('color', '#666');
+                                    $('.menu a').each((index, item) => {
+                                        $(item).hover(
+                                            () => {
+                                                $(item).css('color', '#222');
+                                            },
+                                            () => {
+                                                $(item).css('color', '#666');
+                                            }
+                                        );
+                                    });
+                                },
+                                () => {
+                                    item.children('ul').css({
+                                        height: 0,
+                                        color: '#222',
+                                        'z-index': 2,
+                                        padding: '0 5px',
+                                    });
+                                    item.children('span').css('color', '#666');
+                                }
+                            );
+                        });
+                    }
+
+                    //为每条链接添加小方块
+                    function addSquare() {
+                        $('.list a, .menu').each((index, item) => {
+                            const square = $('<i></i>');
+                            $(item).css('padding', '2px 10px');
+                            $(item).html($(item).html().trim());
+                            $(item).prepend(square);
+                        });
+                    }
                 }
 
                 //进度条
@@ -566,10 +578,6 @@
                 <h2>Study</h2>
                 <ul class="list">
                     <li><a href="https://www.csdn.net/">CSDN</a></li>
-                    <li><a href="https://www.w3school.com.cn/">W3 School</a></li>
-
-                    <li><a href="https://www.html.cn/">HTML中文网</a></li>
-                    <li><a href="https://www.runoob.com/">菜鸟教程</a></li>
                     <li><a href="https://www.gushiwen.cn/">古诗文网</a></li>
                     <li>
                         <a href="http://shared.youdao.com/market/xmdh/163.html">
@@ -586,30 +594,23 @@
                     <li><a href="http://study.topcsa.club/">Top学习平台</a></li>
                     <li><a href="https://www.bootcdn.cn/">BootCDN 中国CDN加速服务</a></li>
                     <li class="menu">
-                        <span class="title">打字练习</span>
-                        <span class="arrow">></span>
-                        <ul>
-                            <li><a href="https://www.wubidz.cn/">在线打字练习</a></li>
-                            <li>
-                                <a href="https://barneyzhao.gitee.io/typing-cn/#/">Typing-cn</a>
-                            </li>
-                            <li>
-                                <a href="https://www.typingclub.com/sportal/program-3.game">
-                                    TypingClub
-                                </a>
-                            </li>
-                        </ul>
+                        <span>前端教程</span>
+                        <a href="https://www.runoob.com/">菜鸟教程</a>
+                        <a href="https://www.w3school.com.cn/">W3C School</a>
+                        <a href="https://www.html.cn/">HTML 中文网</a>
                     </li>
                     <li class="menu">
-                        <span class="title">API</span>
-                        <span class="arrow">></span>
-                        <ul>
-                            <li><a href="https://www.matools.com/api/java8">Java8 API</a></li>
-                            <li>
-                                <a href="https://jquery.cuishifeng.cn/">Jquery API</a>
-                            </li>
-                            <li><a href="https://cn.vuejs.org/v2/api/">Vue API</a></li>
-                        </ul>
+                        <span>打字练习</span>
+                        <a href="https://www.wubidz.cn/">在线打字练习</a>
+                        <a href="https://barneyzhao.gitee.io/typing-cn/#/">Typing-cn</a>
+                        <a href="https://www.typingclub.com/sportal/program-3.game">TypingClub</a>
+                    </li>
+                    <li class="menu">
+                        <span>API</span>
+                        <a href="https://www.w3cschool.cn/javascript/dict">W3C School JS API</a>
+                        <a href="https://jquery.cuishifeng.cn/">Jquery API</a>
+                        <a href="https://cn.vuejs.org/v2/api/">Vue API</a>
+                        <a href="https://www.matools.com/api/java8">Java8 API</a>
                     </li>
                 </ul>
             </div>
@@ -635,14 +636,11 @@
                     </li>
                     <li><a href="http://www.heishenhua.com/">黑神话：悟空</a></li>
                     <li class="menu">
-                        <span class="title">我的世界</span>
-                        <span class="arrow">></span>
-                        <ul>
-                            <li><a href="http://www.mcmap.cc/">我的世界MOD下载</a></li>
-                            <li><a href="http://www.minecraftxz.com/">我的世界中文下载站</a></li>
-                            <li><a href="https://www.mcmod.cn/">我的世界百科</a></li>
-                            <li><a href="https://openid.13a.com/">樱花我的世界联机服务</a></li>
-                        </ul>
+                        <span>我的世界</span>
+                        <a href="http://www.mcmap.cc/">我的世界MOD下载</a>
+                        <a href="http://www.minecraftxz.com/">我的世界中文下载站</a>
+                        <a href="https://www.mcmod.cn/">我的世界百科</a>
+                        <a href="https://openid.13a.com/">樱花我的世界联机服务</a>
                     </li>
                 </ul>
             </div>
@@ -658,8 +656,6 @@
                     <li><a href="https://wall.alphacoders.com/?lang=Chinese">WallpaperAbyss</a></li>
                     <li><a href="https://wallroom.io/">Wallroom</a></li>
                     <li><a href="https://www.yuumeiart.com/">YUUMEI</a></li>
-                    <li><a href="https://konachan.com/">Konachan</a></li>
-                    <li><a href="https://www.pixiv.net/">Pixiv</a></li>
                     <li><a href="https://yande.re/post">Yande</a></li>
                 </ul>
             </div>
@@ -688,17 +684,10 @@
                         </a>
                     </li>
                     <li class="menu">
-                        <span class="title">网盘</span>
-                        <span class="arrow">></span>
-                        <ul>
-                            <li><a href="https://www.aliyundrive.com/drive/">阿里云盘</a></li>
-                            <li>
-                                <a href="https://quqi.com/">曲奇云盘</a>
-                            </li>
-                            <li>
-                                <a href="https://pan.baidu.com/">百度网盘</a>
-                            </li>
-                        </ul>
+                        <span>网盘</span>
+                        <a href="https://www.aliyundrive.com/drive/">阿里云盘</a>
+                        <a href="https://quqi.com/">曲奇云盘</a>
+                        <a href="https://pan.baidu.com/">百度网盘</a>
                     </li>
                 </ul>
             </div>
@@ -706,7 +695,7 @@
                 <h2>Online Tools</h2>
                 <ul class="list">
                     <li><a href="http://ailongmiao.com/">龙猫导航</a></li>
-                    <li><a href="https://www.kuaidi100.com/?from=openv">快递查询</a></li>
+                    <li><a href="https://www.kuaidi100.com/">快递查询</a></li>
                     <li>
                         <a href="http://tool.liumingye.cn/music/?page=homePage">在线音乐平台</a>
                     </li>
