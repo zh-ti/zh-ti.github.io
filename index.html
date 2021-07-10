@@ -142,7 +142,7 @@
                                             }
                                             window.scrollTo(0, (scrollTop -= 50));
                                         } else {
-                                            if (scrollHeight - scrollTop - 1 == clientHeight) {
+                                            if (scrollHeight - scrollTop >= clientHeight - 5 && scrollHeight - scrollTop <= clientHeight + 5) {
                                                 //判断是否到底
                                                 clearInterval(scrollTimer);
                                             }
